@@ -10,7 +10,7 @@ RUN curl --silent -L --fail \
         https://download2.rstudio.org/server/bionic/amd64/rstudio-server-2022.02.3-492-amd64.deb > /tmp/rstudio.deb && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
-        /tmp/rstudio.deb lmodern && \
+        /tmp/rstudio.deb lmodern file && \
     groupadd jovyan && \
     usermod -g jovyan -a -G users jovyan && \
     bash /tmp/library-scripts/common-debian.sh && \
@@ -24,3 +24,8 @@ RUN pip install --no-cache-dir \
         jupyter-rsession-proxy==2.0.1 && \
     jupyter labextension install @jupyterlab/server-proxy@3.2.1 && \
     jupyter lab build
+
+RUN sudo apt-get update && \
+    sudo apt-get install -y texlive-fonts-extra && \
+    updmap-user
+    # R -e "install.packages('tinytex',dependencies=TRUE, repos='http://cran.rstudio.com/')"

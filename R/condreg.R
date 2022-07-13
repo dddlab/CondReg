@@ -100,6 +100,7 @@ select_condreg <- function(X, k, ...){
 #' @param dir direction of path solver ('forward' or 'backward')
 #' @return list of vector of shrinked eigenvalues \code{Lbar},
 #'   optimal u value \code{uopt} and interval indicator \code{intv}.
+#' @importFrom stats approx median
 ml_solver <- function(L, k, dir='forward'){
 
   p <- length(L)

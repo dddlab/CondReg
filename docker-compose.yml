@@ -2,13 +2,13 @@ version: "3.8"
 
 services:
 
-  rstudio:
+  CondReg:
     build:
       context: .
       dockerfile: .devcontainer/Dockerfile
       args:
         COPY_CONTEXT: .devcontainer
-    image: my-rstudio-image:latest
+    image: my-CondReg-image:latest
     ports:
       - "127.0.0.1:8888:8888"
     environment:
@@ -17,4 +17,4 @@ services:
       - SHELL=/bin/zsh
     volumes:
       - ${PWD}:/home/jovyan/work
-      - ${PWD}:/workspaces/rstudio
+      - ${PWD}:/workspaces/CondReg

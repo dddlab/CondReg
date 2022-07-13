@@ -1,4 +1,4 @@
-# RStudio on GitHub Codespaces
+# CondReg on GitHub Codespaces
 
 ## What is Codespaces?
 
@@ -6,7 +6,7 @@
 
 ## What is in this repository?
 
-This repository shows how you can run RStudio on GitHub Codespaces starting from [Jupyter r-notebook image](https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html#jupyter-r-notebook). The main advantage of this setup is that the [resulting container image](.devcontainer/Dockerfile) will also run on [Jupyter Hub](https://jupyter.org/hub).
+This repository shows how you can run CondReg on GitHub Codespaces starting from [Jupyter r-notebook image](https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html#jupyter-r-notebook). The main advantage of this setup is that the [resulting container image](.devcontainer/Dockerfile) will also run on [Jupyter Hub](https://jupyter.org/hub).
 
 There are three ways to use the [container image](.devcontainer/Dockerfile) in this repository.
 
@@ -28,13 +28,13 @@ Here are the steps:
 
 ```bash
 # Clone this repository
-git clone https://github.com/dddlab/rstudio
-cd rstudio
+git clone https://github.com/dddlab/CondReg
+cd CondReg
 
 # Symlink .devcontainer contents except devcontainer.json
 ln -s .devcontainer/!(devcontainer.json) .
 
 # Build image and start container
-docker-compose build rstudio
+docker-compose build CondReg
 docker-compose up
 ```
