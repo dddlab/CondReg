@@ -1,3 +1,5 @@
 docker-compose.yml
-\.devcontainer
-\.git
+.devcontainer
+.git
+README.md
+^CRAN-SUBMISSION$
