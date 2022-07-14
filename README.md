@@ -56,3 +56,13 @@ Find and click on a link similar to
 http://127.0.0.1:8888/lab?token=[generated token string]
 ```
 and start your RStudio.
+
+### Repository File Location
+Due to the differences in working directory settings ([`workspaceFolder`](https://code.visualstudio.com/docs/remote/devcontainerjson-reference#_image-or-dockerfile-specific-properties) is not implemented in GitHub Codespaces), the path to the workspace folder is `/workspaces/CondReg`. 
+
+Since `/workspaces` directory is not writable by `jovyan` user, building and checking the R package would not work from `/workspaces` directory. Instead, there is a symbolic link directory `/home/jovyan/work` is also created. You would need to switch to `/home/jovyan` in order to build and check the R package:
+```bash
+cd /home/jovyan
+R CMD build work
+R CMD check CondReg_[version-number].tar.gz
+```
