@@ -1,26 +1,38 @@
-# CondReg on GitHub Codespaces
+# CondReg: R package for condition number regularized covariance estimator
 
-## What is Codespaces?
+This repository hosts the R code implementation of the condition number regularized covariance estimator as an [R package](https://cran.r-project.org/package=CondReg): 
 
-[GitHub Codespaces](https://docs.github.com/en/codespaces/overview#what-is-a-codespace) is a hosted development environment in the cloud. Codespaces is [Remote Containers](https://code.visualstudio.com/docs/remote/containers) customized for GitHub. Once set up, Codespaces can be access through the web-based frontend or local installation of [Visual Studio Code](https://code.visualstudio.com).
+> Won, J.-H., Lim, J., Kim, S.-J. and Rajaratnam, B. (2013), Condition-number-regularized covariance estimation. Journal of the Royal Statistical Society: Series B (Statistical Methodology), 75: 427-450. [doi:10.1111/j.1467-9868.2012.01049.x](https://doi.org/10.1111/j.1467-9868.2012.01049.x)
 
-## What is in this repository?
+## Installation
 
-This repository shows how you can run CondReg on GitHub Codespaces starting from [Jupyter r-notebook image](https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html#jupyter-r-notebook). The main advantage of this setup is that the [resulting container image](.devcontainer/Dockerfile) will also run on [Jupyter Hub](https://jupyter.org/hub).
+### CRAN published version
 
-There are three ways to use the [container image](.devcontainer/Dockerfile) in this repository.
+```R
+install.packages("CondReg")
+```
 
-1. **[Jupyter Hub](https://zero-to-jupyterhub.readthedocs.io/en/latest/jupyterhub/customizing/user-environment.html#choose-and-use-an-existing-docker-image)**
-2. **GitHub Codespaces**
-3. **[`docker-compose`](https://docs.docker.com/compose/install/)** (requires command line)
+### Latest GitHub version
 
-### Jupyter Hub
+```R
+devtools::install_github("dddlab/CondReg")
+```
 
-Your IT staff will know what to do with the [`dockerfile`](.devcontainer/Dockerfile)
+## Development
+
+Container-based development environments are also specified in this repository. The relevant files are:
+* Files in [`.devcontainer`](.devcontainer) directory
+* [`docker-compose.yml`](docker-compose.yml) file
+
+Above files allow deploying the development environments using GitHub Codespaces, Visual Studio Code, or Docker compose.
 
 ### GitHub Codespaces
 
-First, you need [access to Codespaces](https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace#access-to-codespaces) and enabled. Then, the files in [`.devcontainer`](.devcontainer) directory will do all the work!
+You will need [access to Codespaces](https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace#access-to-codespaces) and enabled. Then, the files in [`.devcontainer`](.devcontainer) directory will do all the work!
+
+### Visual Studio Code
+
+Follow the [Remote Development in Containers tutorial](https://code.visualstudio.com/docs/remote/containers-tutorial)
 
 ### Docker Compose
 
@@ -31,10 +43,12 @@ Here are the steps:
 git clone https://github.com/dddlab/CondReg
 cd CondReg
 
-# Symlink .devcontainer contents except devcontainer.json
-ln -s .devcontainer/!(devcontainer.json) .
-
 # Build image and start container
 docker-compose build CondReg
 docker-compose up
 ```
+Find and click on a link similar to 
+```
+http://127.0.0.1:8888/lab?token=[generated token string]
+```
+and start your RStudio.
