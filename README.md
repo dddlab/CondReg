@@ -26,11 +26,15 @@ Container-based development environments are also specified in this repository. 
 
 Above files allow deploying the development environments using GitHub Codespaces, Visual Studio Code, or Docker compose.
 
-### GitHub Codespaces
+### Visual Studio Code
+
+Development environment can be deployed on your local machine (Dev Containers) or remotely on GitHub Codespaces. GitHub Codespaces can be accessed through a web-based Visual Studio Code interface. If you have a local installation of Visual Studio Code, it can connect to both Dev Containers and GitHub Codespaces. 
+
+#### GitHub Codespaces (Remote)
 
 You will need [access to Codespaces](https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace#access-to-codespaces) and enabled. Then, the files in [`.devcontainer`](.devcontainer) directory will do all the work!
 
-### Visual Studio Code
+#### Dev Container (Local)
 
 Follow the [Remote Development in Containers tutorial](https://code.visualstudio.com/docs/remote/containers-tutorial)
 
