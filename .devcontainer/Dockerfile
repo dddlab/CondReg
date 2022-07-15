@@ -17,6 +17,12 @@ RUN curl --silent -L --fail \
     apt-get clean -y && \
     rm -rf /tmp/rstudio.deb /var/lib/apt/lists/* /tmp/library-scripts
 
+RUN curl https://cli.github.com/packages/githubcli-archive-keyring.gpg | apt-key add - && \
+    echo "deb [arch=amd64] https://cli.github.com/packages stable main" > \
+        /etc/apt/sources.list.d/github.list && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends gh
+
 USER ${NB_UID}
 
 RUN pip install --no-cache-dir \
