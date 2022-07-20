@@ -1,9 +1,16 @@
 Package: CondReg
 Title: Condition Number Regularized Covariance Estimation
 Version: 0.21.0
-Author: Sang-Yun Oh <syoh@lbl.gov>, Joong-Ho Won <wonj@stats.snu.ac.kr>
-Maintainer: Sang-Yun Oh <syoh@lbl.gov>
-Description: This package implements the condition number regularized covariance estimation. For details, refer to the manuscript: \url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3667751/}.
+Authors@R:
+  c(person(given = "Sang-Yun",
+           family = "Oh",
+           role = c("aut", "cre"),
+           email = "syoh@ucsb.edu"),
+    person(given = "Joong-Ho",
+           family = "Won",
+           role = "aut",
+           email = "wonj@stats.snu.ac.kr"))
+Description: Implements the condition number regularized covariance estimation. For details, refer to the manuscript: \url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3667751/}.
 License: GPL-3
 URL: https://github.com/dddlab/CondReg
 Encoding: UTF-8
