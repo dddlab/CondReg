@@ -28,4 +28,5 @@ RUN pip install --no-cache-dir \
 RUN sudo apt-get update && \
     sudo apt-get install -y texlive-fonts-extra && \
     updmap-user
-    # R -e "install.packages('tinytex',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+
+RUN R -e "install.packages('languageserver', dependencies=TRUE, repos='http://cran.rstudio.com/')"
