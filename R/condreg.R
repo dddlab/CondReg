@@ -325,6 +325,7 @@ path_backward <- function(L) {
 #' @param X n-by-p data matrix
 #' @param k vector of penalties for cross-validation
 #' @param fold number of folds for cross-validation
+#' @return regularization parameter
 #' @export
 select_kmax <- function(X, k, fold=min(nrow(X),10)){
 
