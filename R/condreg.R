@@ -400,7 +400,7 @@ select_kmax <- function(X, k, fold=min(nrow(X),10)){
 #' @export
 condreg <- function(data_in, kmax){
   
-  if (class(data_in)!='list'){
+  if (inherits(data_in, 'list')){
     n <- nrow(data_in)
     p <- ncol(data_in)
     
