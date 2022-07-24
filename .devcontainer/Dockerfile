@@ -35,6 +35,9 @@ RUN sudo apt-get update && \
     sudo apt-get install -y texlive-fonts-extra && \
     updmap-user
 
+RUN sudo apt-get update && \
+    sudo apt-get install -y libfreetype-dev libfreetype6 libfreetype6-dev
+
 RUN R -e "install.packages(c('languageserver', 'httpgd'), dependencies=TRUE, repos='http://cran.rstudio.com/');remotes::install_github('ManuelHentschel/vscDebugger')"
 
 RUN pip install -U radian
