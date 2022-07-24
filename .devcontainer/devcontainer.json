@@ -23,7 +23,10 @@
 		"vscode": {
 			// Set *default* container specific settings.json values on container create.
 			"settings": { 
-				"python.defaultInterpreterPath": "/opt/conda/bin/python"
+				"python.defaultInterpreterPath": "/opt/conda/bin/python",
+				"r.bracketedPaste": true,
+				"r.rterm.linux": "/opt/conda/bin/radian",
+				"r.plot.useHttpgd": true
 			},
 			
 			// Add the IDs of extensions you want installed when the container is created.
