@@ -1,6 +1,5 @@
 #' @rdname covwrappers
 #' @importFrom timeSeries getDataPart
-#' @export
 covSample <- function(x.mat, ...){
   mu <- colMeans(x.mat)
   Sigma <- cov(x.mat)
@@ -9,7 +8,6 @@ covSample <- function(x.mat, ...){
 
 #' @rdname covwrappers
 #' @importFrom timeSeries getDataPart
-#' @export
 covCondreg <- function(x.mat, ...){
   mu <- colMeans(x.mat)
   x.mat <- sweep(x.mat,2,mu)
@@ -21,7 +19,6 @@ covCondreg <- function(x.mat, ...){
 #' @rdname covwrappers
 #' @importFrom BurStFin var.shrink.eqcor
 #' @importFrom timeSeries getDataPart
-#' @export
 covLW <- function(x.mat, ...){
   mu <- colMeans(x.mat)
   Sigma <- var.shrink.eqcor(x.mat, ...)
@@ -31,16 +28,12 @@ covLW <- function(x.mat, ...){
 #' @rdname covwrappers
 #' @importFrom BurStFin factor.model.stat
 #' @importFrom timeSeries getDataPart
-#' @export
 covFM <- function(x.mat, ...){
   mu <- colMeans(x.mat)
   Sigma <- factor.model.stat(x.mat, ...)
   list(mu=mu, Sigma=Sigma)
 }
 
-## library(condreg)
-## load(system.file('data/simulationdata.Rdata',package='condreg'))
-cat('hello\n')
 library(BurStFin)
 
 y <- kgrid(10,30)

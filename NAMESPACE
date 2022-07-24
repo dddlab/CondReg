@@ -2,9 +2,6 @@
 
 export(condreg)
 export(kgrid)
-export(pfweights)
 export(select_condreg)
-export(select_kmax)
-export(transcost)
 importFrom(stats,approx)
 importFrom(stats,median)

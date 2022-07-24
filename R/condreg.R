@@ -11,7 +11,6 @@ NULL
 #' Compute optimal portfolio weights
 #' @param sigma covariance matrix
 #' @return new portfolio weights
-#' @export
 pfweights <- function(sigma){
   p <- ncol(sigma)
   w <- solve(sigma, rep(1,p))
@@ -25,7 +24,6 @@ pfweights <- function(sigma){
 #' @param reltc relative transaction cost
 #' @param wealth current wealth
 #' @return transaction cost of rebalancing portfolio
-#' @export
 transcost <- function(wnew, wold, lastearnings, reltc, wealth){
   wold <- lastearnings * wold
   if (sum(wold)!=0) wold <- wold/sum(wold)
@@ -64,20 +62,18 @@ kgrid <- function(gridmax, numpts){
 #' sigma[3,2] <- sigma[2,3] <- 0.8
 #'
 #' ## Generate normal random samples
-#' \dontrun{
 #' library(MASS)
 #' X <- mvrnorm(200,rep(0,5),sigma)
 #'
 #' ## Covariance estimation
-#' gridpts <- kgrid(50,100)           ## generate grid of penalties to search over
+#' gridpts <- kgrid(50,100)           ## generate penalty grid to search over
 #' crcov <- select_condreg(X,gridpts) ## automatically selects penalty parameter
 #'
 #' ## Inspect output
 #' str(crcov)              ## returned object
 #' sigma.hat <- crcov$S    ## estimate of sigma matrix
 #' omega.hat <- crcov$invS ## estimate of inverse of sigma matrix
-#' }
-#' @export
+#' @export 
 select_condreg <- function(X, k, ...){
 
   n <- nrow(X)
@@ -140,15 +136,6 @@ ml_solver <- function(L, k, dir='forward'){
     
     d_shrunk <- 1/lambda
     
-    ## cat('mat1:',dim(matrix(rep(kmax1*uopt,p), ncol=p)),'\n')
-    ## cat('mat2:',dim(matrix(rep(uopt,p), ncol=p)),'\n')
-    ## cat('mat3:',dim(matrix(rep(1/L,g), ncol=p, byrow=TRUE)),'\n')
-
-    ## cat('dim(d_shrunk)',length(lambda),'\n')
-    ## cat('degenindx',length(degenindx),'\n')
-    ## cat('sum(degenindx)',sum(degenindx),'\n')
-    ## cat('sum(!degenindx)',sum(!degenindx),'\n')
-
     Lbar[!degenindx,] <- d_shrunk
     uopt[!degenindx] <- uopt
     intv[!degenindx] <- FALSE
@@ -184,7 +171,7 @@ path_forward <- function(L) {
     kmax <- 1
     
     r <- p - numzero
-    isDone <- FALSE
+    # isDone <- FALSE
     
     while ( alpha >=1 && beta <= r){
         # intersection of the line passing (u_cur,v_cur) of slope 'slope' with 
@@ -326,7 +313,6 @@ path_backward <- function(L) {
 #' @param k vector of penalties for cross-validation
 #' @param fold number of folds for cross-validation
 #' @return regularization parameter
-#' @export
 select_kmax <- function(X, k, fold=min(nrow(X),10)){
 
   n <- nrow(X)
@@ -385,17 +371,17 @@ select_kmax <- function(X, k, fold=min(nrow(X),10)){
 #' sigma[3,2] <- sigma[2,3] <- 0.8
 #'
 #' ## Generate normal random samples
-#' \dontrun{
-#' library(MASS)
-#' X <- mvrnorm(200,rep(0,5),sigma)
+#' if(requireNamespace("MASS")){
+#'     library(MASS)
+#'     X <- mvrnorm(200,rep(0,5),sigma)
 #'
-#' ## Covariance estimation
-#' crcov <- condreg(X,3)
+#'     ## Covariance estimation
+#'     crcov <- condreg(X,3)
 #'
-#' ## Inspect output
-#' str(crcov)              ## returned object
-#' sigma.hat <- crcov$S    ## estimate of sigma matrix
-#' omega.hat <- crcov$invS ## estimate of inverse of sigma matrix
+#'     ## Inspect output
+#'     str(crcov)              ## returned object
+#'     sigma.hat <- crcov$S    ## estimate of sigma matrix
+#'     omega.hat <- crcov$invS ## estimate of inverse of sigma matrix
 #' }
 #' @export
 condreg <- function(data_in, kmax){

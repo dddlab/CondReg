@@ -24,16 +24,16 @@ sigma <- diag(5)
 sigma[3,2] <- sigma[2,3] <- 0.8
 
 ## Generate normal random samples
-\dontrun{
-library(MASS)
-X <- mvrnorm(200,rep(0,5),sigma)
+if(requireNamespace("MASS")){
+    library(MASS)
+    X <- mvrnorm(200,rep(0,5),sigma)
 
-## Covariance estimation
-crcov <- condreg(X,3)
+    ## Covariance estimation
+    crcov <- condreg(X,3)
 
-## Inspect output
-str(crcov)              ## returned object
-sigma.hat <- crcov$S    ## estimate of sigma matrix
-omega.hat <- crcov$invS ## estimate of inverse of sigma matrix
+    ## Inspect output
+    str(crcov)              ## returned object
+    sigma.hat <- crcov$S    ## estimate of sigma matrix
+    omega.hat <- crcov$invS ## estimate of inverse of sigma matrix
 }
 }

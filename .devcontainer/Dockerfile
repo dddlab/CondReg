@@ -35,4 +35,6 @@ RUN sudo apt-get update && \
     sudo apt-get install -y texlive-fonts-extra && \
     updmap-user
 
-RUN R -e "install.packages('languageserver', dependencies=TRUE, repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages(c('languageserver', 'httpgd'), dependencies=TRUE, repos='http://cran.rstudio.com/');remotes::install_github('ManuelHentschel/vscDebugger')"
+
+RUN pip install -U radian

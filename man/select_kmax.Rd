@@ -13,6 +13,9 @@ select_kmax(X, k, fold = min(nrow(X), 10))
 
 \item{fold}{number of folds for cross-validation}
 }
+\value{
+regularization parameter
+}
 \description{
 Selection of penalty parameter based on cross-validation
 }

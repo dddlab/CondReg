@@ -29,7 +29,8 @@
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
 				"ms-python.python",
-				"reditorsupport.r"
+				"reditorsupport.r",
+				"RDebugger.r-debugger"
 			]
 		}
 	},

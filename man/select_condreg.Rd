@@ -28,17 +28,15 @@ sigma <- diag(5)
 sigma[3,2] <- sigma[2,3] <- 0.8
 
 ## Generate normal random samples
-\dontrun{
 library(MASS)
 X <- mvrnorm(200,rep(0,5),sigma)
 
 ## Covariance estimation
-gridpts <- kgrid(50,100)           ## generate grid of penalties to search over
+gridpts <- kgrid(50,100)           ## generate penalty grid to search over
 crcov <- select_condreg(X,gridpts) ## automatically selects penalty parameter
 
 ## Inspect output
 str(crcov)              ## returned object
 sigma.hat <- crcov$S    ## estimate of sigma matrix
 omega.hat <- crcov$invS ## estimate of inverse of sigma matrix
-}
 }
