@@ -1,0 +1,21 @@
+Package: condregR
+Type: Package
+Title: Condition Number Regularization for Covariance Matrices
+Version: 0.1.0
+Date: 2023-01-01
+Authors@R: person("Your Name", "Your Last Name", email = "your.email@example.com", role = c("aut", "cre"))
+Description: R interface to the C++ implementation of condition number 
+    regularization for covariance matrices. This package provides efficient methods
+    for regularizing covariance matrices by controlling their condition number,
+    which is useful for portfolio optimization and other applications where
+    well-conditioned covariance matrices are needed.
+License: MIT + file LICENSE
+URL: https://github.com/yourusername/condreg-cpp
+BugReports: https://github.com/yourusername/condreg-cpp/issues
+Imports: 
+    Rcpp (>= 1.0.7)
+LinkingTo: 
+    Rcpp, 
+    RcppEigen
+RoxygenNote: 7.2.0
+Encoding: UTF-8

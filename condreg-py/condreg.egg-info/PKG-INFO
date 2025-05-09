@@ -1,0 +1,62 @@
+Metadata-Version: 2.1
+Name: condreg
+Version: 0.1.0
+Summary: Condition number regularization for covariance matrices
+Home-page: https://github.com/yourusername/condreg-py
+Author: Your Name
+Author-email: your.email@example.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: numpy>=1.20.0
+Requires-Dist: scipy>=1.7.0
+Requires-Dist: matplotlib>=3.4.0
+Requires-Dist: scikit-learn>=1.0.0
+
+# condreg-py
+
+A Python implementation of condition number regularization for covariance matrices.
+
+## Installation
+
+```bash
+pip install condreg
+```
+
+## Usage
+
+```python
+import numpy as np
+from condreg import select_condreg, kgrid, pfweights
+
+# Create a sample dataset
+X = np.random.randn(100, 10)  # 100 observations, 10 variables
+
+# Generate grid of penalties
+gridpts = kgrid(50, 100)
+
+# Estimate regularized covariance matrix
+result = select_condreg(X, gridpts)
+
+# Access results
+sigma_hat = result['S']       # Regularized covariance matrix
+omega_hat = result['invS']    # Inverse of regularized covariance matrix
+kmax = result['kmax']         # Selected regularization parameter
+
+# Compute optimal portfolio weights
+weights = pfweights(sigma_hat)
+```
+
+## Features
+
+- Condition number regularization of covariance matrices
+- Automatic selection of regularization parameter via cross-validation
+- Efficient path algorithms for computing regularization paths
+- Utilities for portfolio optimization
+
+## References
+
+- [Original R implementation](https://github.com/yourlinkhere)
+- [Paper reference]

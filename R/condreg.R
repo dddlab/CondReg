@@ -100,7 +100,6 @@ select_condreg <- function(X, k, ...){
 #' @param dir direction of path solver ('forward' or 'backward')
 #' @return list of vector of shrinked eigenvalues \code{Lbar},
 #'   optimal u value \code{uopt} and interval indicator \code{intv}.
-#' @importFrom stats approx median
 ml_solver <- function(L, k, dir='forward'){
 
   p <- length(L)
@@ -325,7 +324,6 @@ path_backward <- function(L) {
 #' @param X n-by-p data matrix
 #' @param k vector of penalties for cross-validation
 #' @param fold number of folds for cross-validation
-#' @return regularization parameter
 #' @export
 select_kmax <- function(X, k, fold=min(nrow(X),10)){
 
@@ -400,7 +398,7 @@ select_kmax <- function(X, k, fold=min(nrow(X),10)){
 #' @export
 condreg <- function(data_in, kmax){
   
-  if (inherits(data_in, 'list')){
+  if (class(data_in)!='list'){
     n <- nrow(data_in)
     p <- ncol(data_in)
     

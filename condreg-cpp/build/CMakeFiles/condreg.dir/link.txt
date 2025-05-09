@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc libcondreg.a CMakeFiles/condreg.dir/src/path_solvers.cpp.o CMakeFiles/condreg.dir/src/utils.cpp.o CMakeFiles/condreg.dir/src/condreg.cpp.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libcondreg.a

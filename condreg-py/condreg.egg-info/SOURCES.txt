@@ -1,0 +1,13 @@
+README.md
+setup.py
+condreg/__init__.py
+condreg/core.py
+condreg/cv.py
+condreg/path_solvers.py
+condreg/utils.py
+condreg.egg-info/PKG-INFO
+condreg.egg-info/SOURCES.txt
+condreg.egg-info/dependency_links.txt
+condreg.egg-info/requires.txt
+condreg.egg-info/top_level.txt
+tests/test1.py
