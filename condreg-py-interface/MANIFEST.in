@@ -1,0 +1,23 @@
+# Documentation files
+include README.md
+include LICENSE*
+
+# Build configuration
+include pyproject.toml
+include setup.py
+include setup.cfg
+
+# Python package files
+recursive-include condreg *.py
+
+# Include pre-compiled extensions
+recursive-include condreg *.so
+
+# Include test files for sdist (but not for binary distributions)
+recursive-include tests *.py
+
+# Exclude build artifacts and caches
+global-exclude *.py[cod] __pycache__ *.so.dSYM
+
+include README.m
+include setup.cfg

@@ -6,3 +6,28 @@ requires = [
     "numpy"
 ]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "condreg"
+version = "0.1.0"
+description = "Conditional Regression for statistical modeling"
+readme = "README.md"
+authors = [
+    {name = "Sang Yun Oh", email = "syoh@ucsb.edu"},
+    {name = "Lixing Guo", email = "lixing_guo@ucsb.edu"}
+]
+license = "MIT"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Scientific/Engineering :: Statistics",
+]
+requires-python = ">=3.6"
+dependencies = [
+    "numpy>=1.18.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/dddlab/CondReg.git"  # Update with your actual repo
+"Bug Tracker" = "https://github.com/dddlab/CondReg/issues"

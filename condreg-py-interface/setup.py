@@ -3,18 +3,21 @@ from setuptools.command.build_ext import build_ext
 import sys
 import os
 import platform
+import pybind11
 
 __version__ = '0.1.0'
 
 # Locate condreg-cpp and Eigen
-CONDREG_CPP_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'condreg-cpp'))
+root_dir = os.path.dirname(os.path.abspath(__file__))
+condreg_cpp_dir = os.path.abspath(os.path.join(root_dir, '..', 'condreg-cpp'))
+condreg_cpp_include = os.path.join(condreg_cpp_dir, 'include')
 EIGEN_INCLUDE_DIR = os.path.abspath(os.path.join('/opt/homebrew/include/eigen3'))
 
 # Detect Python version
 python_version = ".".join(map(str, sys.version_info[:2]))
 print(f"Building for Python {python_version}")
 print(f"Using Eigen headers from: {EIGEN_INCLUDE_DIR}")
-print(f"Using condreg-cpp from: {CONDREG_CPP_DIR}")
+print(f"Using condreg-cpp from: {condreg_cpp_dir}")
 
 class get_pybind_include:
     """Helper class to determine the pybind11 include path"""
@@ -22,7 +25,6 @@ class get_pybind_include:
         self.user = user
 
     def __str__(self):
-        import pybind11
         return pybind11.get_include(self.user)
 
 def has_flag(compiler, flagname):
@@ -74,29 +76,33 @@ class BuildExt(build_ext):
             opts.append('/DVERSION_INFO=\\"%s\\"' % self.distribution.get_version())
         for ext in self.extensions:
             ext.extra_compile_args = opts
-            ext.extra_link_args = link_opts + ['-Wl,-rpath,{}'.format(os.path.join(CONDREG_CPP_DIR, 'build'))]
+            ext.extra_link_args = link_opts + ['-Wl,-rpath,{}'.format(os.path.join(condreg_cpp_dir, 'build'))]
         build_ext.build_extensions(self)
 
-ext_modules = [
-    Extension(
-        'condreg_cpp',
-        ['src/bindings.cpp'],
-        include_dirs=[
-            # Path to pybind11 headers
-            get_pybind_include(),
-            get_pybind_include(user=True),
-            # Path to condreg-cpp headers
-            os.path.join(CONDREG_CPP_DIR, 'include'),
-            # Path to Eigen headers
-            EIGEN_INCLUDE_DIR
-        ],
-        libraries=['condreg'],
-        library_dirs=[os.path.join(CONDREG_CPP_DIR, 'build')],
-        runtime_library_dirs=[os.path.join(CONDREG_CPP_DIR, 'build')],
-        language='c++',
-        extra_link_args=['-Wl,-rpath,{}'.format(os.path.join(CONDREG_CPP_DIR, 'build'))]
-    ),
-]
+# Only build extensions when explicitly requested
+if 'build_ext' in sys.argv:
+    ext_modules = [
+        Extension(
+            'condreg_cpp',
+            ['src/bindings.cpp'],
+            include_dirs=[
+                # Add the include directory here
+                condreg_cpp_include,
+                # Path to pybind11 headers
+                get_pybind_include(),
+                get_pybind_include(user=True),
+                # Path to Eigen headers
+                EIGEN_INCLUDE_DIR
+            ],
+            libraries=['condreg'],
+            library_dirs=[os.path.join(condreg_cpp_dir, 'build')],
+            runtime_library_dirs=[os.path.join(condreg_cpp_dir, 'build')],
+            language='c++',
+            extra_link_args=['-Wl,-rpath,{}'.format(os.path.join(condreg_cpp_dir, 'build'))]
+        ),
+    ]
+else:
+    ext_modules = []
 
 setup(
     name='condreg_cpp',
