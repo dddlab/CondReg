@@ -1,9 +1,9 @@
-# CondrReg: Conditional Regression for Statistical Modeling
+# CondrReg: Condition-Number-Regularized Covariance Estimation
 
 [![PyPI version](https://badge.fury.io/py/condreg.svg)](https://badge.fury.io/py/condreg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-CondrReg is a high-performance library for conditional regression, implemented in C++ with Python bindings. It provides efficient algorithms for working with sparse covariance matrices and conditional linear regression models.
+A Python package for condition-number-regularized covariance estimation, based on Won et al. (2013).
 
 ## Installation
 
@@ -14,12 +14,13 @@ pip install condreg
 ## Features
 
 - **High Performance**: Core algorithms implemented in C++ for speed
-- **Sparse Matrix Support**: Efficient handling of sparse matrices for high-dimensional data
-- **Regularization Paths**: Computation of solution paths for a range of regularization parameters
-- **NumPy Integration**: Seamless integration with NumPy arrays
-- **Statistical Inference**: Tools for conditional statistical inference
+- **Condition Number Regularization**: Implementation of the algorithm from Won et al. (2013)
+- **Solution Paths**: Computation of regularization paths for multiple penalty parameters
+- **Cross-Validation**: Automatic selection of optimal regularization parameter
+- **Portfolio Optimization**: Tools for portfolio weight calculation and transaction cost estimation
+- **NumPy Integration**: Integration with NumPy arrays
 
-## Quick Example
+## Quickstart
 
 ```python
 import numpy as np
@@ -29,58 +30,121 @@ import condreg
 n = 100  # samples
 p = 20   # features
 X = np.random.randn(n, p)
-beta = np.zeros(p)
-beta[0:5] = np.array([1.5, -1.0, 0.8, -0.5, 1.2])  # True coefficients
-y = X @ beta + 0.5 * np.random.randn(n)  # Add noise
 
-# Initialize CondrReg model
-model = condreg.init_condreg()
+# Generate a grid of condition number bounds
+k_grid = condreg.kgrid(gridmax=100.0, numpts=50)
 
-# Fit the model
-result = model.fit(X, y, lambda_val=0.1)
+# Estimate covariance with cross-validation
+result = condreg.select_condreg(X, k_grid)
 
-# Print coefficients
-print("Estimated coefficients:")
-print(result.coef)
+# Extract results
+Sigma_hat = result['S']        # Regularized covariance matrix
+Omega_hat = result['invS']     # Precision matrix estimate
+k_optimal = result['kmax']     # Selected condition number bound
 
-# Compute a regularization path
-path = model.path(X, y, lambda_sequence=np.logspace(-3, 0, 20))
+# Direct usage with a known condition number
+direct_result = condreg.condreg(X, 10.0)
+Sigma_direct = direct_result['S']
+Omega_direct = direct_result['invS']
 
-# Access path results
-for i, lambda_val in enumerate(path.lambdas):
-    print(f"Lambda: {lambda_val:.4f}, Non-zero coefficients: {np.sum(path.coefs[i] != 0)}")
+# Compute optimal portfolio weights
+weights = condreg.pfweights(Sigma_hat)
 ```
 
-## Requirements
+## API Reference
 
-- Python 3.6+
-- NumPy 1.18.0+
+### `condreg.kgrid(gridmax, numpts)`
 
-## Documentation
+Return a vector of grid of penalties for cross-validation.
 
-For detailed documentation and examples, please visit:
-[https://github.com/dddlab/CondReg](https://github.com/dddlab/CondReg)
+* **Parameters**:
+  * `gridmax` (float): Maximum value in penalty grid
+  * `numpts` (int): Number of points in penalty grid
+* **Returns**: Array of penalties between 1 and approximately gridmax with logarithmic spacing
+
+### `condreg.select_condreg(X, k, **kwargs)`
+
+Compute the best condition number regularized based on cross-validation selected penalty parameter.
+
+* **Parameters**:
+  * `X` (numpy.ndarray): n-by-p matrix of data
+  * `k` (numpy.ndarray): Vector of penalties for cross-validation
+  * `fold` (int, optional): Number of folds for cross-validation (default: min(n, 10))
+* **Returns**: Dictionary with keys:
+  * `S`: Condition number regularized covariance matrix
+  * `invS`: Inverse of the regularized covariance matrix
+  * `kmax`: Selected penalty parameter
+
+### `condreg.condreg(data_in, kmax)`
+
+Compute the condition number with given penalty parameter.
+
+* **Parameters**:
+  * `data_in` (numpy.ndarray): Input data matrix
+  * `kmax` (float): Scalar regularization parameter
+* **Returns**: Dictionary with keys:
+  * `S`: Condition number regularized covariance matrix
+  * `invS`: Inverse of the regularized covariance matrix
+
+### `condreg.pfweights(sigma)`
+
+Compute optimal portfolio weights.
+
+* **Parameters**:
+  * `sigma` (numpy.ndarray): Covariance matrix
+* **Returns**: Array of portfolio weights
+
+### `condreg.transcost(wnew, wold, lastearnings, reltc, wealth)`
+
+Compute transaction cost.
+
+* **Parameters**:
+  * `wnew` (numpy.ndarray): New portfolio weights
+  * `wold` (numpy.ndarray): Old portfolio weights
+  * `lastearnings` (float): Earnings from last period
+  * `reltc` (float): Relative transaction cost
+  * `wealth` (float): Current wealth
+* **Returns**: Transaction cost of rebalancing portfolio
+
+### `condreg.select_kmax(X, k, fold=None)`
+
+Selection of penalty parameter based on cross-validation.
+
+* **Parameters**:
+  * `X` (numpy.ndarray): n-by-p data matrix
+  * `k` (numpy.ndarray): Vector of penalties for cross-validation
+  * `fold` (int, optional): Number of folds for cross-validation (default: min(n, 10))
+* **Returns**: Dictionary with keys:
+  * `kmax`: Selected penalty parameter
+  * `negL`: Negative log-likelihood values
+
+### `condreg.init_condreg()`
+
+Initialize the CondrReg model. This function returns an instance of the CondrReg class, which provides all the functionality directly. Most users should use the top-level functions instead.
+
+* **Returns**: CondrReg model instance with methods matching the top-level functions
 
 ## Citation
 
-If you use CondrReg in your research, please cite:
-
-@article{oh2015solution,
-title={On the Solution Path of Regularized Covariance Estimators},
-author={Oh, Sang-Yun and Rajaratnam, Bala and Won, Joong-Ho},
-year={2015},
-doi={10.1080/10618600.2014.932811}
+```
+@article{won2013condition,
+  title={Condition-number-regularized covariance estimation},
+  author={Won, Joong-Ho and Lim, Johan and Kim, Seung-Jean and Rajaratnam, Bala},
+  journal={Journal of the Royal Statistical Society: Series B (Statistical Methodology)},
+  volume={75},
+  number={3},
+  pages={427--450},
+  year={2013},
+  publisher={Wiley Online Library},
+  doi={10.1111/j.1467-9868.2012.01049.x}
 }
+```
+
+## References
+
+* Won, J. H., Lim, J., Kim, S. J., & Rajaratnam, B. (2013). *Condition-number-regularized covariance estimation*. Journal of the Royal Statistical Society: Series B (Statistical Methodology), 75(3), 427–450.
+* [Original R implementation on GitHub](https://github.com/dddlab/CondReg/tree/archive_main)
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Contributors
-
-- Sang Yun Oh (syoh@ucsb.edu)
-- Lixing Guo (lixing_guo@ucsb.edu)
-
-## Acknowledgments
-
-This research was supported by [funding source or acknowledgment here].
+MIT License. See [LICENSE](LICENSE) for details.
