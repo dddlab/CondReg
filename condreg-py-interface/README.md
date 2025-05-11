@@ -16,7 +16,6 @@ pip install condreg
 - **High Performance**: Core algorithms implemented in C++ for speed
 - **Condition Number Regularization**: Implementation of the algorithm from Won et al. (2013)
 - **Solution Paths**: Computation of regularization paths for multiple penalty parameters
-- **Cross-Validation**: Automatic selection of optimal regularization parameter
 - **Portfolio Optimization**: Tools for portfolio weight calculation and transaction cost estimation
 - **NumPy Integration**: Integration with NumPy arrays
 
