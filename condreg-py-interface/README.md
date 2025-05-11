@@ -65,11 +65,11 @@ For detailed documentation and examples, please visit:
 
 If you use CondrReg in your research, please cite:
 
-@article{oh2023condreg,
-  title={CondrReg: A High-Performance Library for Conditional Regression},
-  author={Oh, Sang Yun and Guo, Lixing},
-  journal={Journal of Statistical Software},
-  year={2023}
+@article{oh2015solution,
+title={On the Solution Path of Regularized Covariance Estimators},
+author={Oh, Sang-Yun and Rajaratnam, Bala and Won, Joong-Ho},
+year={2015},
+doi={10.1080/10618600.2014.932811}
 }
 
 ## License

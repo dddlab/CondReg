@@ -9,19 +9,51 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "condreg"
-version = "0.1.0"
+version = "0.1.1"
 description = "Conditional Regression for statistical modeling"
 readme = "README.md"
 authors = [
     {name = "Sang Yun Oh", email = "syoh@ucsb.edu"},
     {name = "Lixing Guo", email = "lixing_guo@ucsb.edu"}
 ]
-license = "MIT"
+license = {text = "MIT"}
 classifiers = [
-    "Programming Language :: Python :: 3",
-    "Operating System :: OS Independent",
+    # Development Status
+    "Development Status :: 4 - Beta",
+    
+    # Intended Audiences
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Intended Audience :: Financial and Insurance Industry",
+    
+    # Topics
+    "Topic :: Scientific/Engineering",
     "Topic :: Scientific/Engineering :: Mathematics",
-    "Topic :: Scientific/Engineering :: Statistics",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    
+    # Programming Language
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: C++",
+    
+    # Environment
+    "Operating System :: OS Independent",
+    
+    # Natural Language
+    "Natural Language :: English",
+    
+    # Frameworks - if your library integrates with any of these
+    "Framework :: Jupyter",
+    "Framework :: Matplotlib",
 ]
 requires-python = ">=3.6"
 dependencies = [

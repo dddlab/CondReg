@@ -1,17 +1,36 @@
 Metadata-Version: 2.4
 Name: condreg
-Version: 0.1.0
+Version: 0.1.1
 Summary: Conditional Regression for statistical modeling
 Home-page: https://github.com/dddlab/CondReg.git
 Author: Sang Yun Oh, Lixing Guo
 Author-email: Sang Yun Oh <syoh@ucsb.edu>, Lixing Guo <lixing_guo@ucsb.edu>
-License-Expression: MIT
+License: MIT
 Project-URL: Homepage, https://github.com/dddlab/CondReg.git
 Project-URL: Bug Tracker, https://github.com/dddlab/CondReg/issues
-Classifier: Programming Language :: Python :: 3
-Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Financial and Insurance Industry
+Classifier: Topic :: Scientific/Engineering
 Classifier: Topic :: Scientific/Engineering :: Mathematics
-Classifier: Topic :: Scientific/Engineering :: Statistics
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: C++
+Classifier: Operating System :: OS Independent
+Classifier: Natural Language :: English
+Classifier: Framework :: Jupyter
+Classifier: Framework :: Matplotlib
 Requires-Python: >=3.6
 Description-Content-Type: text/markdown
 License-File: LICENSE
@@ -86,11 +105,11 @@ For detailed documentation and examples, please visit:
 
 If you use CondrReg in your research, please cite:
 
-@article{oh2023condreg,
-  title={CondrReg: A High-Performance Library for Conditional Regression},
-  author={Oh, Sang Yun and Guo, Lixing},
-  journal={Journal of Statistical Software},
-  year={2023}
+@article{oh2015solution,
+title={On the Solution Path of Regularized Covariance Estimators},
+author={Oh, Sang-Yun and Rajaratnam, Bala and Won, Joong-Ho},
+year={2015},
+doi={10.1080/10618600.2014.932811}
 }
 
 ## License
