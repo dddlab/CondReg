@@ -27,5 +27,4 @@ pfweights = model.pfweights
 transcost = model.transcost
 select_kmax = model.select_kmax
 
-# Export relevant classes and functions
-# (Update this based on what should be exposed to users)
+# Export relevant classes and functions, (Update this based on what should be exposed to users)

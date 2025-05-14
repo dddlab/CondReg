@@ -5,7 +5,7 @@ import os
 import platform
 import pybind11
 
-__version__ = '0.1.0'
+__version__ = '0.1.2'
 
 # Locate condreg-cpp and Eigen
 root_dir = os.path.dirname(os.path.abspath(__file__))

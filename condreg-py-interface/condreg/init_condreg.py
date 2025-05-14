@@ -1,5 +1,5 @@
 """
-Initialize CondrReg module to match the R implementation
+Initialize CondrReg module
 """
 import numpy as np
 import sys
@@ -8,16 +8,14 @@ import importlib.util
 
 def init_condreg():
     """
-    Initialize the CondrReg module and return a wrapper class that matches
-    the original R implementation
+    Initialize the CondrReg module and return a wrapper class
     """
     # Use the module already loaded in __init__.py
     from . import condreg_cpp
     
     class CondrReg:
         """
-        Python wrapper for the conditional regression C++ module that
-        exactly matches the R implementation's API
+        Python wrapper for the conditional regression C++ module
         """
         def __init__(self):
             self.module = condreg_cpp
@@ -34,7 +32,9 @@ def init_condreg():
                 numpy.ndarray: vector of penalties between 1 and approximately
                 gridmax with logarithmic spacing
             """
-            return np.asarray(self.module.kgrid(gridmax, numpts))
+            grid = np.asarray(self.module.kgrid(gridmax, numpts))
+            # Ensure the grid is sorted in ascending order
+            return np.sort(grid)
         
         def select_condreg(self, X, k, **kwargs):
             """
@@ -62,7 +62,29 @@ def init_condreg():
             # Call select_condreg from C++
             result = self.module.select_condreg(X, k, cv_folds)
             
-            # Return dictionary to match R's list return
+            # Handle tuple return value instead of object
+            if isinstance(result, tuple):
+                if len(result) >= 3:
+                    return {
+                        'S': result[0],
+                        'invS': result[1],
+                        'kmax': result[2]
+                    }
+                elif len(result) >= 2:
+                    # For 2-element tuples, get kmax separately
+                    kmax_result = self.module.select_kmax(X, k, cv_folds)
+                    if isinstance(kmax_result, tuple) and len(kmax_result) >= 1:
+                        kmax = kmax_result[0]
+                    else:
+                        kmax = kmax_result.kmax if hasattr(kmax_result, 'kmax') else None
+                        
+                    return {
+                        'S': result[0],
+                        'invS': result[1],
+                        'kmax': kmax
+                    }
+            
+            # Keep the original behavior as a fallback
             return {
                 'S': result.S,
                 'invS': result.invS,
@@ -88,11 +110,18 @@ def init_condreg():
             # Call condreg from C++
             result = self.module.condreg(data_in, kmax)
             
-            # Return dictionary to match R's list return
-            return {
-                'S': result.S,
-                'invS': result.invS
-            }
+            # Handle tuple return value instead of object
+            if isinstance(result, tuple) and len(result) >= 2:
+                return {
+                    'S': result[0],
+                    'invS': result[1]
+                }
+            else:
+                # Keep the original behavior as a fallback
+                return {
+                    'S': result.S,
+                    'invS': result.invS
+                }
         
         def pfweights(self, sigma):
             """
@@ -147,10 +176,18 @@ def init_condreg():
             
             result = self.module.select_kmax(X, k, fold)
             
-            return {
-                'kmax': result.kmax,
-                'negL': result.negL
-            }
+            # Handle tuple return value instead of object
+            if isinstance(result, tuple) and len(result) >= 2:
+                return {
+                    'kmax': result[0],
+                    'negL': result[1]
+                }
+            else:
+                # Keep the original behavior as a fallback
+                return {
+                    'kmax': result.kmax,
+                    'negL': result.negL
+                }
     
     # Return an instance of the wrapper class
     return CondrReg()

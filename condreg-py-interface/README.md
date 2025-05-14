@@ -66,13 +66,14 @@ Return a vector of grid of penalties for cross-validation.
 Compute the best condition number regularized based on cross-validation selected penalty parameter.
 
 * **Parameters**:
-  * `X` (numpy.ndarray): n-by-p matrix of data
+  * `X` (numpy.ndarray): n-by-p matrix of data (will be converted to float64)
   * `k` (numpy.ndarray): Vector of penalties for cross-validation
   * `fold` (int, optional): Number of folds for cross-validation (default: min(n, 10))
 * **Returns**: Dictionary with keys:
   * `S`: Condition number regularized covariance matrix
   * `invS`: Inverse of the regularized covariance matrix
   * `kmax`: Selected penalty parameter
+* **Notes**: All input arrays are converted to numpy arrays with dtype=float64 internally
 
 ### `condreg.condreg(data_in, kmax)`
 
@@ -143,6 +144,12 @@ Initialize the CondrReg model. This function returns an instance of the CondrReg
 
 * Won, J. H., Lim, J., Kim, S. J., & Rajaratnam, B. (2013). *Condition-number-regularized covariance estimation*. Journal of the Royal Statistical Society: Series B (Statistical Methodology), 75(3), 427–450.
 * [Original R implementation on GitHub](https://github.com/dddlab/CondReg/tree/archive_main)
+
+## Authors
+
+**Lixing Guo, Sang Yun Oh** 
+
+This package is developed based on the original R implementation by Professor Oh, available at [dddlab/CondReg](https://github.com/dddlab/CondReg/tree/archive_main). The core algorithms follow the original work while providing extended functionalities and optimized performance through C++ reimplementation using Eigen library.
 
 ## License
 

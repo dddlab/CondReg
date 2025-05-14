@@ -1,6 +1,6 @@
 # Documentation files
 include README.md
-include LICENSE*
+include LICENSE
 
 # Build configuration
 include pyproject.toml
@@ -18,6 +18,3 @@ recursive-include tests *.py
 
 # Exclude build artifacts and caches
 global-exclude *.py[cod] __pycache__ *.so.dSYM
-
-include README.m
-include setup.cfg

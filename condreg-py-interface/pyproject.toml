@@ -9,14 +9,15 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "condreg"
-version = "0.1.1"
+version = "0.1.2"
 description = "Conditional Regression for statistical modeling"
 readme = "README.md"
 authors = [
     {name = "Sang Yun Oh", email = "syoh@ucsb.edu"},
     {name = "Lixing Guo", email = "lixing_guo@ucsb.edu"}
 ]
-license = {text = "MIT"}
+license = "MIT"
+license-files = ["LICENSE"]
 classifiers = [
     # Development Status
     "Development Status :: 4 - Beta",
