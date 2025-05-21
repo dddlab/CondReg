@@ -1,9 +1,12 @@
-# CondrReg: Condition-Number-Regularized Covariance Estimation
+# CondReg: Condition-Number-Regularized Covariance Estimation
 
 [![PyPI version](https://badge.fury.io/py/condreg.svg)](https://badge.fury.io/py/condreg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A Python package for condition-number-regularized covariance estimation, based on Won et al. (2013).
+
+## Authors
+**Lixing Guo, Sang Yun Oh** 
 
 ## Installation
 
@@ -144,10 +147,6 @@ Initialize the CondrReg model. This function returns an instance of the CondrReg
 
 * Won, J. H., Lim, J., Kim, S. J., & Rajaratnam, B. (2013). *Condition-number-regularized covariance estimation*. Journal of the Royal Statistical Society: Series B (Statistical Methodology), 75(3), 427–450.
 * [Original R implementation on GitHub](https://github.com/dddlab/CondReg/tree/archive_main)
-
-## Authors
-
-**Lixing Guo, Sang Yun Oh** 
 
 This package is developed based on the original R implementation by Professor Oh, available at [dddlab/CondReg](https://github.com/dddlab/CondReg/tree/archive_main). The core algorithms follow the original work while providing extended functionalities and optimized performance through C++ reimplementation using Eigen library.
 
