@@ -102,6 +102,28 @@ jobs:
       run: |
         cd condreg-py-interface
         python -m pytest tests/ -v
+    - name: Verify Python package
+      if: runner.os != 'Windows'
+      run: |
+        echo "=== C++ library build successful ==="
+        echo "=== Testing Python import ===" 
+        python -c "
+        import sys
+        sys.path.insert(0, '.')
+        try:
+            import condreg
+            print('✓ Python import successful')
+            import numpy as np
+            X = np.random.randn(10, 5)
+            result = condreg.condreg(X, kmax=2.0)
+            print('✓ Basic functionality test passed')
+        except Exception as e:
+            print(f'✗ Python import/functionality test failed: {e}')
+            import traceback
+            traceback.print_exc()
+            exit(1)
+        "
+        echo "=== Python package verification complete ==="
   build-wheels:
     name: Build wheels on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
@@ -140,59 +162,173 @@ jobs:
         
         # Install dependencies and build C++ library before building Python wheels
         CIBW_BEFORE_BUILD_LINUX: |
-          echo "=== Installing dependencies ===" &&
+          set -e
+          echo "=== Installing dependencies ===" 
           yum install -y eigen3-devel cmake3 gcc-c++ make || 
-          (apt-get update && apt-get install -y libeigen3-dev cmake build-essential) &&
-          echo "=== Cleaning previous builds ===" &&
-          rm -rf ../condreg-cpp/build &&
-          rm -rf build &&
-          rm -rf condreg/*.so condreg/lib/*.so &&
-          echo "=== Current directory: $(pwd) ===" &&
-          echo "=== Directory contents: ===" &&
-          ls -la &&
-          echo "=== Parent directory contents: ===" &&
-          ls -la .. &&
-          echo "=== Building C++ library ===" &&
-          python build_cpp.py &&
-          echo "=== Verifying C++ library build ===" &&
-          ls -la ../condreg-cpp/build/ || echo "Build directory not found"
+          (apt-get update && apt-get install -y libeigen3-dev cmake build-essential)
+          echo "=== Cleaning previous builds ===" 
+          rm -rf ../condreg-cpp/build
+          rm -rf build
+          rm -rf condreg/*.so condreg/lib/*.so
+          echo "=== Current directory: $(pwd) ===" 
+          echo "=== Directory contents: ===" 
+          ls -la
+          echo "=== Parent directory contents: ===" 
+          ls -la ..
+          echo "=== Checking for build_cpp.py ===" 
+          ls -la build_cpp.py
+          echo "=== Checking condreg-cpp directory ===" 
+          ls -la ../condreg-cpp/
+          echo "=== Checking CMake version ===" 
+          cmake --version || cmake3 --version || echo "No cmake found"
+          echo "=== Checking GCC version ===" 
+          gcc --version || echo "No gcc found"
+          echo "=== Checking Eigen installation ===" 
+          find /usr -name "Eigen" -type d 2>/dev/null || echo "Eigen directory not found"
+          ls -la /usr/include/eigen3/ 2>/dev/null || echo "No eigen3 in /usr/include"
+          echo "=== Building C++ library with Python script ===" 
+          export EIGEN_INCLUDE_DIR="/usr/include/eigen3"
+          if ! python build_cpp.py; then
+            echo "Python build script failed, trying manual build..."
+            cd ../condreg-cpp
+            mkdir -p build
+            cd build
+            cmake_cmd="cmake"
+            if command -v cmake3 >/dev/null 2>&1; then
+              cmake_cmd="cmake3"
+            fi
+            echo "Using cmake command: $cmake_cmd"
+            $cmake_cmd .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DEIGEN3_INCLUDE_DIR=/usr/include/eigen3
+            $cmake_cmd --build . --config Release
+            cd ../../condreg-py-interface
+          fi
+          echo "=== Verifying C++ library build ===" 
+          ls -la ../condreg-cpp/build/ || (echo "Build directory not found" && exit 1)
+          if [ ! -f "../condreg-cpp/build/libcondreg.a" ] && [ ! -f "../condreg-cpp/build/libcondreg.so" ]; then
+            echo "ERROR: C++ library not found after build"
+            echo "Contents of build directory:"
+            find ../condreg-cpp/build -type f || echo "No files found"
+            exit 1
+          fi
+          echo "=== C++ library build successful ==="
+          echo "=== Testing Python import ===" 
+          python -c "
+          import sys
+          sys.path.insert(0, '.')
+          try:
+              import condreg
+              print('✓ Python import successful')
+              import numpy as np
+              X = np.random.randn(10, 5)
+              result = condreg.condreg(X, kmax=2.0)
+              print('✓ Basic functionality test passed')
+          except Exception as e:
+              print(f'✗ Python import/functionality test failed: {e}')
+              import traceback
+              traceback.print_exc()
+              exit(1)
+          "
+          echo "=== Python package verification complete ==="
         
         CIBW_BEFORE_BUILD_MACOS: |
-          echo "=== Installing dependencies ===" &&
-          brew install eigen cmake || echo "Dependencies may already be installed" &&
-          echo "=== Cleaning previous builds ===" &&
-          rm -rf ../condreg-cpp/build &&
-          rm -rf build &&
-          rm -rf condreg/*.so condreg/lib/*.so &&
-          echo "=== Current directory: $(pwd) ===" &&
-          echo "=== Directory contents: ===" &&
-          ls -la &&
-          echo "=== Parent directory contents: ===" &&
-          ls -la .. &&
-          echo "=== Building C++ library ===" &&
-          python build_cpp.py &&
-          echo "=== Verifying C++ library build ===" &&
-          ls -la ../condreg-cpp/build/ || echo "Build directory not found"
+          set -e
+          echo "=== Installing dependencies ===" 
+          brew install eigen cmake || echo "Dependencies may already be installed"
+          echo "=== Cleaning previous builds ===" 
+          rm -rf ../condreg-cpp/build
+          rm -rf build
+          rm -rf condreg/*.so condreg/lib/*.so
+          echo "=== Current directory: $(pwd) ===" 
+          echo "=== Directory contents: ===" 
+          ls -la
+          echo "=== Parent directory contents: ===" 
+          ls -la ..
+          echo "=== Checking for build_cpp.py ===" 
+          ls -la build_cpp.py
+          echo "=== Building C++ library with Python script ===" 
+          if ! python build_cpp.py; then
+            echo "Python build script failed, trying manual build..."
+            cd ../condreg-cpp
+            mkdir -p build
+            cd build
+            cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=ON
+            cmake --build . --config Release
+            cd ../../condreg-py-interface
+          fi
+          echo "=== Verifying C++ library build ===" 
+          ls -la ../condreg-cpp/build/ || (echo "Build directory not found" && exit 1)
+          if [ ! -f "../condreg-cpp/build/libcondreg.a" ] && [ ! -f "../condreg-cpp/build/libcondreg.so" ]; then
+            echo "ERROR: C++ library not found after build"
+            echo "Contents of build directory:"
+            find ../condreg-cpp/build -type f || echo "No files found"
+            exit 1
+          fi
+          echo "=== C++ library build successful ==="
+          echo "=== Testing Python import ===" 
+          python -c "
+          import sys
+          sys.path.insert(0, '.')
+          try:
+              import condreg
+              print('✓ Python import successful')
+              import numpy as np
+              X = np.random.randn(10, 5)
+              result = condreg.condreg(X, kmax=2.0)
+              print('✓ Basic functionality test passed')
+          except Exception as e:
+              print(f'✗ Python import/functionality test failed: {e}')
+              import traceback
+              traceback.print_exc()
+              exit(1)
+          "
+          echo "=== Python package verification complete ==="
         
         CIBW_BEFORE_BUILD_WINDOWS: |
-          echo "=== Installing dependencies ===" &&
-          git clone --depth 1 https://github.com/Microsoft/vcpkg.git C:\vcpkg &&
-          C:\vcpkg\bootstrap-vcpkg.bat &&
-          C:\vcpkg\vcpkg install eigen3:x64-windows --triplet x64-windows &&
-          set EIGEN_INCLUDE_DIR=C:\vcpkg\installed\x64-windows\include\eigen3 &&
-          echo "=== Cleaning previous builds ===" &&
-          del /Q /S ..\condreg-cpp\build 2>nul || echo "No build dir to clean" &&
-          del /Q /S build 2>nul || echo "No build dir to clean" &&
-          del /Q condreg\*.pyd condreg\lib\*.pyd 2>nul || echo "No pyd files to clean" &&
-          echo "=== Current directory: %CD% ===" &&
-          echo "=== Directory contents: ===" &&
-          dir &&
-          echo "=== Parent directory contents: ===" &&
-          dir .. &&
-          echo "=== Building C++ library ===" &&
-          python build_cpp.py &&
-          echo "=== Verifying C++ library build ===" &&
-          dir ..\condreg-cpp\build\ || echo "Build directory not found"
+          echo "=== Installing dependencies ===" 
+          git clone --depth 1 https://github.com/Microsoft/vcpkg.git C:\vcpkg
+          C:\vcpkg\bootstrap-vcpkg.bat
+          C:\vcpkg\vcpkg install eigen3:x64-windows --triplet x64-windows
+          set EIGEN_INCLUDE_DIR=C:\vcpkg\installed\x64-windows\include\eigen3
+          echo "=== Cleaning previous builds ===" 
+          del /Q /S ..\condreg-cpp\build 2>nul || echo "No build dir to clean"
+          del /Q /S build 2>nul || echo "No build dir to clean"
+          del /Q condreg\*.pyd condreg\lib\*.pyd 2>nul || echo "No pyd files to clean"
+          echo "=== Current directory: %CD% ===" 
+          echo "=== Directory contents: ===" 
+          dir
+          echo "=== Parent directory contents: ===" 
+          dir ..
+          echo "=== Checking for build_cpp.py ===" 
+          dir build_cpp.py
+          echo "=== Building C++ library ===" 
+          python build_cpp.py
+          echo "=== Verifying C++ library build ===" 
+          dir ..\condreg-cpp\build\ || (echo "Build directory not found" && exit 1)
+          if not exist "..\condreg-cpp\build\Release\condreg.lib" if not exist "..\condreg-cpp\build\Debug\condreg.lib" if not exist "..\condreg-cpp\build\condreg.lib" (
+            echo "ERROR: C++ library not found after build"
+            echo "Contents of build directory:"
+            dir /S ..\condreg-cpp\build\ || echo "No files found"
+            exit 1
+          )
+          echo "=== C++ library build successful ==="
+          echo "=== Testing Python import ===" 
+          python -c "
+          import sys
+          sys.path.insert(0, '.')
+          try:
+              import condreg
+              print('✓ Python import successful')
+              import numpy as np
+              X = np.random.randn(10, 5)
+              result = condreg.condreg(X, kmax=2.0)
+              print('✓ Basic functionality test passed')
+          except Exception as e:
+              print(f'✗ Python import/functionality test failed: {e}')
+              import traceback
+              traceback.print_exc()
+              exit(1)
+          "
+          echo "=== Python package verification complete ==="
     - uses: actions/upload-artifact@v4
       with:
         name: wheels-${{ matrix.os }}
