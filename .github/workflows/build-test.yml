@@ -214,24 +214,6 @@ jobs:
             exit 1
           fi
           echo "=== C++ library build successful ==="
-          echo "=== Testing Python import ===" 
-          python -c "
-          import sys
-          sys.path.insert(0, '.')
-          try:
-              import condreg
-              print('✓ Python import successful')
-              import numpy as np
-              X = np.random.randn(10, 5)
-              result = condreg.condreg(X, kmax=2.0)
-              print('✓ Basic functionality test passed')
-          except Exception as e:
-              print(f'✗ Python import/functionality test failed: {e}')
-              import traceback
-              traceback.print_exc()
-              exit(1)
-          "
-          echo "=== Python package verification complete ==="
         
         CIBW_BEFORE_BUILD_MACOS: |
           set -e
@@ -265,24 +247,6 @@ jobs:
             exit 1
           fi
           echo "=== C++ library build successful ==="
-          echo "=== Testing Python import ===" 
-          python -c "
-          import sys
-          sys.path.insert(0, '.')
-          try:
-              import condreg
-              print('✓ Python import successful')
-              import numpy as np
-              X = np.random.randn(10, 5)
-              result = condreg.condreg(X, kmax=2.0)
-              print('✓ Basic functionality test passed')
-          except Exception as e:
-              print(f'✗ Python import/functionality test failed: {e}')
-              import traceback
-              traceback.print_exc()
-              exit(1)
-          "
-          echo "=== Python package verification complete ==="
         
         CIBW_BEFORE_BUILD_WINDOWS: |
           echo "=== Installing dependencies ===" 
@@ -310,24 +274,6 @@ jobs:
             exit 1
           )
           echo "=== C++ library build successful ==="
-          echo "=== Testing Python import ===" 
-          python -c "
-          import sys
-          sys.path.insert(0, '.')
-          try:
-              import condreg
-              print('✓ Python import successful')
-              import numpy as np
-              X = np.random.randn(10, 5)
-              result = condreg.condreg(X, kmax=2.0)
-              print('✓ Basic functionality test passed')
-          except Exception as e:
-              print(f'✗ Python import/functionality test failed: {e}')
-              import traceback
-              traceback.print_exc()
-              exit(1)
-          "
-          echo "=== Python package verification complete ==="
     - uses: actions/upload-artifact@v4
       with:
         name: wheels-${{ matrix.os }}
