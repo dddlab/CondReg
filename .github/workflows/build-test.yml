@@ -19,6 +19,8 @@ jobs:
             python-version: '3.8'
           - os: macos-latest
             python-version: '3.8'
+          - os: ubuntu-latest
+            python-version: '3.8'
     steps:
     - uses: actions/checkout@v4
       with:
