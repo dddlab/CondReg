@@ -1,0 +1,32 @@
+Package: condregR
+Type: Package
+Title: Condition Number Regularized Covariance Estimation
+Version: 0.1.0
+Date: 2023-12-15
+Authors@R: c(
+    person("Sang Yun", "Oh", email = "syoh@ucsb.edu", role = c("aut", "cre")),
+    person("Lixing", "Guo", email = "lixing_guo@ucsb.edu", role = "aut")
+  )
+Description: Implementation of condition-number-regularized covariance estimation
+    based on Won et al. (2013) <doi:10.1111/j.1467-9868.2012.01049.x>. This method
+    regularizes covariance matrices by constraining their condition number, which
+    improves statistical efficiency and numerical stability. The package provides
+    tools for cross-validation, portfolio optimization and efficient computation
+    using a high-performance C++ backend with Eigen linear algebra library.
+License: MIT + file LICENSE
+URL: https://github.com/dddlab/CondReg
+BugReports: https://github.com/dddlab/CondReg/issues
+Depends: R (>= 3.5.0)
+Imports: Rcpp (>= 1.0.7), methods
+LinkingTo: Rcpp, RcppEigen
+Suggests: testthat (>= 3.0.0), knitr, rmarkdown, MASS
+Config/testthat/edition: 3
+VignetteBuilder: knitr
+RoxygenNote: 7.2.0
+Encoding: UTF-8
+LazyData: true
+NeedsCompilation: yes
+Packaged: 2025-06-16 17:58:41 UTC; lordine
+Author: Sang Yun Oh [aut, cre],
+  Lixing Guo [aut]
+Maintainer: Sang Yun Oh <syoh@ucsb.edu>

@@ -1,0 +1,5 @@
+name	user	system	elapsed
+condreg	0.001	0.001	0.005	
+kgrid	0	0	0	
+select_condreg	0.000	0.000	0.001	
+select_kmax	0	0	0	

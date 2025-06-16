@@ -1,0 +1,5 @@
+CXX_STD = CXX14
+PKG_CPPFLAGS = -I../inst/include -DEIGEN_PERMANENTLY_DISABLE_STUPID_WARNINGS
+
+SOURCES = rcpp_bindings.cpp condreg.cpp utils.cpp path_solvers.cpp
+OBJECTS = $(SOURCES:.cpp=.o) 

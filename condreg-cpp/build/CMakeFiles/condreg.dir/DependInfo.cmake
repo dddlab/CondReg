@@ -8,9 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/lordine/stat_research/CondReg/condreg-cpp/src/condreg.cpp" "CMakeFiles/condreg.dir/src/condreg.cpp.o" "gcc" "CMakeFiles/condreg.dir/src/condreg.cpp.o.d"
-  "/Users/lordine/stat_research/CondReg/condreg-cpp/src/path_solvers.cpp" "CMakeFiles/condreg.dir/src/path_solvers.cpp.o" "gcc" "CMakeFiles/condreg.dir/src/path_solvers.cpp.o.d"
-  "/Users/lordine/stat_research/CondReg/condreg-cpp/src/utils.cpp" "CMakeFiles/condreg.dir/src/utils.cpp.o" "gcc" "CMakeFiles/condreg.dir/src/utils.cpp.o.d"
+  "/Users/lordine/stat_condreg/CondReg/condreg-cpp/src/condreg.cpp" "CMakeFiles/condreg.dir/src/condreg.cpp.o" "gcc" "CMakeFiles/condreg.dir/src/condreg.cpp.o.d"
+  "/Users/lordine/stat_condreg/CondReg/condreg-cpp/src/path_solvers.cpp" "CMakeFiles/condreg.dir/src/path_solvers.cpp.o" "gcc" "CMakeFiles/condreg.dir/src/path_solvers.cpp.o.d"
+  "/Users/lordine/stat_condreg/CondReg/condreg-cpp/src/utils.cpp" "CMakeFiles/condreg.dir/src/utils.cpp.o" "gcc" "CMakeFiles/condreg.dir/src/utils.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

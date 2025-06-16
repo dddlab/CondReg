@@ -4,7 +4,7 @@
 # compile CXX with /Library/Developer/CommandLineTools/usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/Users/lordine/stat_research/CondReg/condreg-cpp/include -isystem /opt/homebrew/include/eigen3
+CXX_INCLUDES = -I/Users/lordine/stat_condreg/CondReg/condreg-cpp/include -isystem /opt/homebrew/include/eigen3
 
 CXX_FLAGSarm64 = -std=gnu++14 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk
 

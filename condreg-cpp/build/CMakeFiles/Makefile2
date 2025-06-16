@@ -54,10 +54,10 @@ RM = /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-pack
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/lordine/stat_research/CondReg/condreg-cpp
+CMAKE_SOURCE_DIR = /Users/lordine/stat_condreg/CondReg/condreg-cpp
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/lordine/stat_research/CondReg/condreg-cpp/build
+CMAKE_BINARY_DIR = /Users/lordine/stat_condreg/CondReg/condreg-cpp/build
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -87,14 +87,14 @@ clean: CMakeFiles/test_condreg.dir/clean
 CMakeFiles/condreg.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/condreg.dir/build.make CMakeFiles/condreg.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/condreg.dir/build.make CMakeFiles/condreg.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/lordine/stat_research/CondReg/condreg-cpp/build/CMakeFiles --progress-num=1,2,3,4 "Built target condreg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/lordine/stat_condreg/CondReg/condreg-cpp/build/CMakeFiles --progress-num=1,2,3,4 "Built target condreg"
 .PHONY : CMakeFiles/condreg.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/condreg.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/lordine/stat_research/CondReg/condreg-cpp/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/lordine/stat_condreg/CondReg/condreg-cpp/build/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/condreg.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/lordine/stat_research/CondReg/condreg-cpp/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/lordine/stat_condreg/CondReg/condreg-cpp/build/CMakeFiles 0
 .PHONY : CMakeFiles/condreg.dir/rule
 
 # Convenience name for target.
@@ -113,14 +113,14 @@ CMakeFiles/condreg.dir/clean:
 CMakeFiles/test_path_solvers.dir/all: CMakeFiles/condreg.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_path_solvers.dir/build.make CMakeFiles/test_path_solvers.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_path_solvers.dir/build.make CMakeFiles/test_path_solvers.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/lordine/stat_research/CondReg/condreg-cpp/build/CMakeFiles --progress-num=7,8 "Built target test_path_solvers"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/lordine/stat_condreg/CondReg/condreg-cpp/build/CMakeFiles --progress-num=7,8 "Built target test_path_solvers"
 .PHONY : CMakeFiles/test_path_solvers.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test_path_solvers.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/lordine/stat_research/CondReg/condreg-cpp/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/lordine/stat_condreg/CondReg/condreg-cpp/build/CMakeFiles 6
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_path_solvers.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/lordine/stat_research/CondReg/condreg-cpp/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/lordine/stat_condreg/CondReg/condreg-cpp/build/CMakeFiles 0
 .PHONY : CMakeFiles/test_path_solvers.dir/rule
 
 # Convenience name for target.
@@ -139,14 +139,14 @@ CMakeFiles/test_path_solvers.dir/clean:
 CMakeFiles/test_utils.dir/all: CMakeFiles/condreg.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_utils.dir/build.make CMakeFiles/test_utils.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_utils.dir/build.make CMakeFiles/test_utils.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/lordine/stat_research/CondReg/condreg-cpp/build/CMakeFiles --progress-num=9,10 "Built target test_utils"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/lordine/stat_condreg/CondReg/condreg-cpp/build/CMakeFiles --progress-num=9,10 "Built target test_utils"
 .PHONY : CMakeFiles/test_utils.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test_utils.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/lordine/stat_research/CondReg/condreg-cpp/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/lordine/stat_condreg/CondReg/condreg-cpp/build/CMakeFiles 6
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_utils.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/lordine/stat_research/CondReg/condreg-cpp/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/lordine/stat_condreg/CondReg/condreg-cpp/build/CMakeFiles 0
 .PHONY : CMakeFiles/test_utils.dir/rule
 
 # Convenience name for target.
@@ -165,14 +165,14 @@ CMakeFiles/test_utils.dir/clean:
 CMakeFiles/test_condreg.dir/all: CMakeFiles/condreg.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_condreg.dir/build.make CMakeFiles/test_condreg.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_condreg.dir/build.make CMakeFiles/test_condreg.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/lordine/stat_research/CondReg/condreg-cpp/build/CMakeFiles --progress-num=5,6 "Built target test_condreg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/lordine/stat_condreg/CondReg/condreg-cpp/build/CMakeFiles --progress-num=5,6 "Built target test_condreg"
 .PHONY : CMakeFiles/test_condreg.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test_condreg.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/lordine/stat_research/CondReg/condreg-cpp/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/lordine/stat_condreg/CondReg/condreg-cpp/build/CMakeFiles 6
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_condreg.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/lordine/stat_research/CondReg/condreg-cpp/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/lordine/stat_condreg/CondReg/condreg-cpp/build/CMakeFiles 0
 .PHONY : CMakeFiles/test_condreg.dir/rule
 
 # Convenience name for target.

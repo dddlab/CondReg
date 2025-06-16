@@ -2,25 +2,108 @@
 
 [![PyPI version](https://badge.fury.io/py/condreg.svg)](https://badge.fury.io/py/condreg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Platform Support](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-blue)](https://github.com/dddlab/CondReg)
 
-A Python package for condition-number-regularized covariance estimation, based on Won et al. (2013).
+A Python package for condition-number-regularized covariance estimation, based on Won et al. (2013). This package provides high-performance implementations with cross-platform support for Windows, macOS, and Linux.
 
 ## Authors
 **Lixing Guo, Sang Yun Oh** 
 
 ## Installation
 
+### Quick Installation (Recommended)
+
 ```bash
 pip install condreg
 ```
 
+### Platform-Specific Requirements
+
+#### Windows
+- **Python**: 3.6 or later
+- **Build Tools**: Visual Studio 2019 or later (or Build Tools for Visual Studio)
+- **CMake**: 3.12 or later
+- **Eigen3**: Automatically detected or install via vcpkg
+
+```bash
+# Install via vcpkg (recommended)
+vcpkg install eigen3
+
+# Or set environment variable if manually installed
+set EIGEN_INCLUDE_DIR=C:\path\to\eigen3\include
+```
+
+#### macOS
+- **Python**: 3.6 or later
+- **Xcode Command Line Tools**: `xcode-select --install`
+- **CMake**: `brew install cmake`
+- **Eigen3**: `brew install eigen`
+
+```bash
+# Install dependencies
+brew install cmake eigen
+
+# Install package
+pip install condreg
+```
+
+#### Linux (Ubuntu/Debian)
+- **Python**: 3.6 or later
+- **Build essentials**: `sudo apt-get install build-essential cmake`
+- **Eigen3**: `sudo apt-get install libeigen3-dev`
+
+```bash
+# Install dependencies
+sudo apt-get update
+sudo apt-get install build-essential cmake libeigen3-dev
+
+# Install package
+pip install condreg
+```
+
+#### Linux (CentOS/RHEL/Fedora)
+```bash
+# CentOS/RHEL
+sudo yum install gcc-c++ cmake eigen3-devel
+
+# Fedora
+sudo dnf install gcc-c++ cmake eigen3-devel
+
+# Install package
+pip install condreg
+```
+
+### Building from Source
+
+If you need to build from source or encounter installation issues:
+
+```bash
+# Clone the repository
+git clone https://github.com/dddlab/CondReg.git
+cd CondReg/condreg-py-interface
+
+# Build C++ library (cross-platform script)
+python build_cpp.py
+
+# Install Python package
+pip install -e .
+```
+
+### Environment Variables
+
+You can set these environment variables to customize the build:
+
+- `EIGEN_INCLUDE_DIR`: Path to Eigen3 headers (if not in standard location)
+- `CMAKE_GENERATOR`: CMake generator to use (e.g., "Ninja", "Unix Makefiles")
+
 ## Features
 
-- **High Performance**: Core algorithms implemented in C++ for speed
+- **Cross-Platform Support**: Works on Windows, macOS, and Linux
+- **High Performance**: Core algorithms implemented in C++ with Eigen for speed
 - **Condition Number Regularization**: Implementation of the algorithm from Won et al. (2013)
 - **Solution Paths**: Computation of regularization paths for multiple penalty parameters
 - **Portfolio Optimization**: Tools for portfolio weight calculation and transaction cost estimation
-- **NumPy Integration**: Integration with NumPy arrays
+- **NumPy Integration**: Seamless integration with NumPy arrays
 
 ## Quickstart
 
@@ -52,6 +135,21 @@ Omega_direct = direct_result['invS']
 # Compute optimal portfolio weights
 weights = condreg.pfweights(Sigma_hat)
 ```
+
+## Troubleshooting
+
+### Common Installation Issues
+
+1. **CMake not found**: Install CMake using your system package manager
+2. **Eigen3 not found**: Install Eigen3 or set `EIGEN_INCLUDE_DIR` environment variable
+3. **Compiler errors on Windows**: Install Visual Studio Build Tools
+4. **Permission errors**: Use `pip install --user condreg` for user-local installation
+
+### Platform-Specific Notes
+
+- **Windows**: Requires Visual Studio 2019 or later for C++ compilation
+- **macOS**: Requires Xcode Command Line Tools
+- **Linux**: Requires GCC 7+ or Clang 5+ with C++14 support
 
 ## API Reference
 

@@ -53,10 +53,10 @@ RM = /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-pack
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/lordine/stat_research/CondReg/condreg-cpp
+CMAKE_SOURCE_DIR = /Users/lordine/stat_condreg/CondReg/condreg-cpp
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/lordine/stat_research/CondReg/condreg-cpp/build
+CMAKE_BINARY_DIR = /Users/lordine/stat_condreg/CondReg/condreg-cpp/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/condreg.dir/depend.make
@@ -70,46 +70,46 @@ include CMakeFiles/condreg.dir/progress.make
 include CMakeFiles/condreg.dir/flags.make
 
 CMakeFiles/condreg.dir/src/path_solvers.cpp.o: CMakeFiles/condreg.dir/flags.make
-CMakeFiles/condreg.dir/src/path_solvers.cpp.o: /Users/lordine/stat_research/CondReg/condreg-cpp/src/path_solvers.cpp
+CMakeFiles/condreg.dir/src/path_solvers.cpp.o: /Users/lordine/stat_condreg/CondReg/condreg-cpp/src/path_solvers.cpp
 CMakeFiles/condreg.dir/src/path_solvers.cpp.o: CMakeFiles/condreg.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/lordine/stat_research/CondReg/condreg-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/condreg.dir/src/path_solvers.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/condreg.dir/src/path_solvers.cpp.o -MF CMakeFiles/condreg.dir/src/path_solvers.cpp.o.d -o CMakeFiles/condreg.dir/src/path_solvers.cpp.o -c /Users/lordine/stat_research/CondReg/condreg-cpp/src/path_solvers.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/lordine/stat_condreg/CondReg/condreg-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/condreg.dir/src/path_solvers.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/condreg.dir/src/path_solvers.cpp.o -MF CMakeFiles/condreg.dir/src/path_solvers.cpp.o.d -o CMakeFiles/condreg.dir/src/path_solvers.cpp.o -c /Users/lordine/stat_condreg/CondReg/condreg-cpp/src/path_solvers.cpp
 
 CMakeFiles/condreg.dir/src/path_solvers.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/condreg.dir/src/path_solvers.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/lordine/stat_research/CondReg/condreg-cpp/src/path_solvers.cpp > CMakeFiles/condreg.dir/src/path_solvers.cpp.i
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/lordine/stat_condreg/CondReg/condreg-cpp/src/path_solvers.cpp > CMakeFiles/condreg.dir/src/path_solvers.cpp.i
 
 CMakeFiles/condreg.dir/src/path_solvers.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/condreg.dir/src/path_solvers.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/lordine/stat_research/CondReg/condreg-cpp/src/path_solvers.cpp -o CMakeFiles/condreg.dir/src/path_solvers.cpp.s
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/lordine/stat_condreg/CondReg/condreg-cpp/src/path_solvers.cpp -o CMakeFiles/condreg.dir/src/path_solvers.cpp.s
 
 CMakeFiles/condreg.dir/src/utils.cpp.o: CMakeFiles/condreg.dir/flags.make
-CMakeFiles/condreg.dir/src/utils.cpp.o: /Users/lordine/stat_research/CondReg/condreg-cpp/src/utils.cpp
+CMakeFiles/condreg.dir/src/utils.cpp.o: /Users/lordine/stat_condreg/CondReg/condreg-cpp/src/utils.cpp
 CMakeFiles/condreg.dir/src/utils.cpp.o: CMakeFiles/condreg.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/lordine/stat_research/CondReg/condreg-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/condreg.dir/src/utils.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/condreg.dir/src/utils.cpp.o -MF CMakeFiles/condreg.dir/src/utils.cpp.o.d -o CMakeFiles/condreg.dir/src/utils.cpp.o -c /Users/lordine/stat_research/CondReg/condreg-cpp/src/utils.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/lordine/stat_condreg/CondReg/condreg-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/condreg.dir/src/utils.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/condreg.dir/src/utils.cpp.o -MF CMakeFiles/condreg.dir/src/utils.cpp.o.d -o CMakeFiles/condreg.dir/src/utils.cpp.o -c /Users/lordine/stat_condreg/CondReg/condreg-cpp/src/utils.cpp
 
 CMakeFiles/condreg.dir/src/utils.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/condreg.dir/src/utils.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/lordine/stat_research/CondReg/condreg-cpp/src/utils.cpp > CMakeFiles/condreg.dir/src/utils.cpp.i
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/lordine/stat_condreg/CondReg/condreg-cpp/src/utils.cpp > CMakeFiles/condreg.dir/src/utils.cpp.i
 
 CMakeFiles/condreg.dir/src/utils.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/condreg.dir/src/utils.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/lordine/stat_research/CondReg/condreg-cpp/src/utils.cpp -o CMakeFiles/condreg.dir/src/utils.cpp.s
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/lordine/stat_condreg/CondReg/condreg-cpp/src/utils.cpp -o CMakeFiles/condreg.dir/src/utils.cpp.s
 
 CMakeFiles/condreg.dir/src/condreg.cpp.o: CMakeFiles/condreg.dir/flags.make
-CMakeFiles/condreg.dir/src/condreg.cpp.o: /Users/lordine/stat_research/CondReg/condreg-cpp/src/condreg.cpp
+CMakeFiles/condreg.dir/src/condreg.cpp.o: /Users/lordine/stat_condreg/CondReg/condreg-cpp/src/condreg.cpp
 CMakeFiles/condreg.dir/src/condreg.cpp.o: CMakeFiles/condreg.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/lordine/stat_research/CondReg/condreg-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/condreg.dir/src/condreg.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/condreg.dir/src/condreg.cpp.o -MF CMakeFiles/condreg.dir/src/condreg.cpp.o.d -o CMakeFiles/condreg.dir/src/condreg.cpp.o -c /Users/lordine/stat_research/CondReg/condreg-cpp/src/condreg.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/lordine/stat_condreg/CondReg/condreg-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/condreg.dir/src/condreg.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/condreg.dir/src/condreg.cpp.o -MF CMakeFiles/condreg.dir/src/condreg.cpp.o.d -o CMakeFiles/condreg.dir/src/condreg.cpp.o -c /Users/lordine/stat_condreg/CondReg/condreg-cpp/src/condreg.cpp
 
 CMakeFiles/condreg.dir/src/condreg.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/condreg.dir/src/condreg.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/lordine/stat_research/CondReg/condreg-cpp/src/condreg.cpp > CMakeFiles/condreg.dir/src/condreg.cpp.i
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/lordine/stat_condreg/CondReg/condreg-cpp/src/condreg.cpp > CMakeFiles/condreg.dir/src/condreg.cpp.i
 
 CMakeFiles/condreg.dir/src/condreg.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/condreg.dir/src/condreg.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/lordine/stat_research/CondReg/condreg-cpp/src/condreg.cpp -o CMakeFiles/condreg.dir/src/condreg.cpp.s
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/lordine/stat_condreg/CondReg/condreg-cpp/src/condreg.cpp -o CMakeFiles/condreg.dir/src/condreg.cpp.s
 
 # Object files for target condreg
 condreg_OBJECTS = \
@@ -125,7 +125,7 @@ libcondreg.a: CMakeFiles/condreg.dir/src/utils.cpp.o
 libcondreg.a: CMakeFiles/condreg.dir/src/condreg.cpp.o
 libcondreg.a: CMakeFiles/condreg.dir/build.make
 libcondreg.a: CMakeFiles/condreg.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/lordine/stat_research/CondReg/condreg-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libcondreg.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/lordine/stat_condreg/CondReg/condreg-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libcondreg.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/condreg.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/condreg.dir/link.txt --verbose=$(VERBOSE)
 
@@ -138,6 +138,6 @@ CMakeFiles/condreg.dir/clean:
 .PHONY : CMakeFiles/condreg.dir/clean
 
 CMakeFiles/condreg.dir/depend:
-	cd /Users/lordine/stat_research/CondReg/condreg-cpp/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/lordine/stat_research/CondReg/condreg-cpp /Users/lordine/stat_research/CondReg/condreg-cpp /Users/lordine/stat_research/CondReg/condreg-cpp/build /Users/lordine/stat_research/CondReg/condreg-cpp/build /Users/lordine/stat_research/CondReg/condreg-cpp/build/CMakeFiles/condreg.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /Users/lordine/stat_condreg/CondReg/condreg-cpp/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/lordine/stat_condreg/CondReg/condreg-cpp /Users/lordine/stat_condreg/CondReg/condreg-cpp /Users/lordine/stat_condreg/CondReg/condreg-cpp/build /Users/lordine/stat_condreg/CondReg/condreg-cpp/build /Users/lordine/stat_condreg/CondReg/condreg-cpp/build/CMakeFiles/condreg.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/condreg.dir/depend
 

@@ -1,4 +1,0 @@
-test_path_solvers 3 0.00125104
-test_utils 3 0.00248193
-test_condreg 3 0.015355
----
