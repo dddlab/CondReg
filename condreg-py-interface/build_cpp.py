@@ -185,7 +185,7 @@ def build_cpp_library():
     for pattern in lib_patterns:
         lib_path = build_dir / pattern
         if lib_path.exists():
-            print(f"✓ Library built successfully: {lib_path}")
+            print(f"Library built successfully: {lib_path}")
             lib_found = True
             break
     
@@ -251,7 +251,7 @@ def main():
             sys.exit(1)
         
         build_cpp_library()
-        print("✓ Build completed successfully!")
+        print("Build completed successfully!")
         
     except Exception as e:
         print(f"Build failed: {e}")
