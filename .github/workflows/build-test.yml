@@ -248,7 +248,10 @@ jobs:
           fi
           echo "=== C++ library build successful ==="
         
-        CIBW_ENVIRONMENT_WINDOWS: EIGEN_INCLUDE_DIR=C:\vcpkg\installed\x64-windows\include\eigen3
+        CIBW_ENVIRONMENT_WINDOWS: >
+          EIGEN_INCLUDE_DIR=C:/vcpkg/installed/x64-windows/include/eigen3
+          EIGEN3_INCLUDE_DIR=C:/vcpkg/installed/x64-windows/include/eigen3
+          CMAKE_PREFIX_PATH=C:/vcpkg/installed/x64-windows
         
         CIBW_BEFORE_BUILD_WINDOWS: |
           echo "=== Installing dependencies ===" 
