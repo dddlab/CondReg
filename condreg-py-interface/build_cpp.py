@@ -36,6 +36,55 @@ def find_cmake():
             return name
     raise RuntimeError("CMake not found. Please install CMake.")
 
+def detect_visual_studio_generator():
+    """Detect available Visual Studio generator for CMake"""
+    # Try to detect Visual Studio installations
+    vs_versions = [
+        ("Visual Studio 17 2022", [
+            "C:/Program Files/Microsoft Visual Studio/2022/Enterprise",
+            "C:/Program Files/Microsoft Visual Studio/2022/Professional", 
+            "C:/Program Files/Microsoft Visual Studio/2022/Community",
+            "C:/Program Files/Microsoft Visual Studio/2022/BuildTools"
+        ]),
+        ("Visual Studio 16 2019", [
+            "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise",
+            "C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional",
+            "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community",
+            "C:/Program Files (x86)/Microsoft Visual Studio/2019/BuildTools"
+        ]),
+        ("Visual Studio 15 2017", [
+            "C:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise",
+            "C:/Program Files (x86)/Microsoft Visual Studio/2017/Professional",
+            "C:/Program Files (x86)/Microsoft Visual Studio/2017/Community",
+            "C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools"
+        ])
+    ]
+    
+    for generator, paths in vs_versions:
+        for path in paths:
+            if os.path.exists(path):
+                print(f"Found Visual Studio installation: {path}")
+                return generator
+    
+    # Fallback: try to use cmake to detect generators
+    try:
+        cmake = find_cmake()
+        result = subprocess.run([cmake, "--help"], capture_output=True, text=True)
+        if result.returncode == 0:
+            output = result.stdout
+            if "Visual Studio 17 2022" in output:
+                return "Visual Studio 17 2022"
+            elif "Visual Studio 16 2019" in output:
+                return "Visual Studio 16 2019"
+            elif "Visual Studio 15 2017" in output:
+                return "Visual Studio 15 2017"
+    except Exception as e:
+        print(f"Warning: Could not detect Visual Studio version via cmake: {e}")
+    
+    # Final fallback
+    print("Warning: Could not detect Visual Studio version, using default")
+    return "Visual Studio 17 2022"
+
 def build_cpp_library():
     """Build the C++ library"""
     # Get paths - handle both cases: running from condreg-py-interface or from repo root
@@ -91,9 +140,10 @@ def build_cpp_library():
     
     # Platform-specific configuration
     if platform.system() == "Windows":
-        # Use Visual Studio generator on Windows
+        # Use Visual Studio generator on Windows - detect available version
+        vs_generator = detect_visual_studio_generator()
         cmake_args.extend([
-            "-G", "Visual Studio 16 2019",  # or newer
+            "-G", vs_generator,
             "-A", "x64",
             "-DCMAKE_BUILD_TYPE=Release"
         ])
