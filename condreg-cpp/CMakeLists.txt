@@ -34,17 +34,9 @@ if(NOT Eigen3_FOUND)
     # Set include path
     include_directories(${eigen_SOURCE_DIR})
     
-    # Copy Eigen to lib/eigen after build if needed
-    add_custom_command(
-      TARGET condreg POST_BUILD
-      COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${eigen_SOURCE_DIR}/Eigen
-        ${CMAKE_CURRENT_SOURCE_DIR}/lib/eigen/Eigen
-      COMMENT "Copying Eigen to lib/eigen directory"
-    )
-    
-    # Set flag to indicate we need to add dependency later
+    # Set flag to indicate we need to add dependency and custom command later
     set(NEED_EIGEN_DEPENDENCY TRUE)
+    set(NEED_EIGEN_COPY TRUE)
   endif()
 endif()
 
@@ -58,6 +50,17 @@ add_library(condreg STATIC
 # Now that the library target exists, we can add the dependency if needed
 if(DEFINED NEED_EIGEN_DEPENDENCY)
     add_dependencies(condreg eigen)
+endif()
+
+# Add custom command to copy Eigen if needed
+if(DEFINED NEED_EIGEN_COPY)
+    add_custom_command(
+      TARGET condreg POST_BUILD
+      COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${eigen_SOURCE_DIR}/Eigen
+        ${CMAKE_CURRENT_SOURCE_DIR}/lib/eigen/Eigen
+      COMMENT "Copying Eigen to lib/eigen directory"
+    )
 endif()
 
 # Link with Eigen if found through find_package
