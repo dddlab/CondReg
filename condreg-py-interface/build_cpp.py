@@ -49,6 +49,21 @@ def build_cpp_library():
     print(f"Building C++ library in: {cpp_dir}")
     print(f"Platform: {platform.system()} {platform.machine()}")
     
+    # Clean build directory if CMakeCache.txt exists and has wrong paths
+    cmake_cache = build_dir / "CMakeCache.txt"
+    if cmake_cache.exists():
+        try:
+            with open(cmake_cache, 'r') as f:
+                cache_content = f.read()
+                # Check if cache contains different source directory
+                if str(cpp_dir) not in cache_content:
+                    print("Cleaning stale CMake cache...")
+                    shutil.rmtree(build_dir)
+        except Exception as e:
+            print(f"Warning: Could not check CMake cache: {e}")
+            print("Cleaning build directory to be safe...")
+            shutil.rmtree(build_dir, ignore_errors=True)
+    
     # Create build directory
     build_dir.mkdir(exist_ok=True)
     

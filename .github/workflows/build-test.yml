@@ -7,6 +7,7 @@ on:
 jobs:
   test:
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
     strategy:
       fail-fast: false
       matrix:
@@ -38,17 +39,24 @@ jobs:
         brew install cmake eigen
     - name: Install dependencies (Windows)
       if: runner.os == 'Windows'
+      timeout-minutes: 20
       run: |
-        # Install vcpkg and eigen3
-        git clone https://github.com/Microsoft/vcpkg.git
-        .\vcpkg\bootstrap-vcpkg.bat
-        .\vcpkg\vcpkg install eigen3:x64-windows
-        echo "EIGEN_INCLUDE_DIR=${{ github.workspace }}\vcpkg\installed\x64-windows\include\eigen3" >> $env:GITHUB_ENV
+        # Use chocolatey for faster installation
+        choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
+        # Install vcpkg and eigen3 with shallow clone
+        git clone --depth 1 https://github.com/Microsoft/vcpkg.git C:\vcpkg
+        C:\vcpkg\bootstrap-vcpkg.bat
+        C:\vcpkg\vcpkg install eigen3:x64-windows --triplet x64-windows
+        echo "EIGEN_INCLUDE_DIR=C:\vcpkg\installed\x64-windows\include\eigen3" >> $env:GITHUB_ENV
     - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip
         pip install numpy pybind11 pytest
+    - name: Clean build directory
+      run: |
+        rm -rf condreg-cpp/build || true
     - name: Build C++ library
+      timeout-minutes: 15
       run: |
         cd condreg-py-interface
         python build_cpp.py
@@ -66,6 +74,7 @@ jobs:
   build-wheels:
     name: Build wheels on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
@@ -75,25 +84,37 @@ jobs:
         submodules: recursive
     - name: Build wheels
       uses: pypa/cibuildwheel@v2.22.0
+      timeout-minutes: 45
       with:
         package-dir: ./condreg-py-interface
         output-dir: wheelhouse
       env:
         # Configure cibuildwheel
         CIBW_BUILD: cp38-* cp39-* cp310-* cp311-* cp312-*
-        CIBW_SKIP: "*-win32 *-manylinux_i686"
+        CIBW_SKIP: "*-win32 *-manylinux_i686 *-musllinux*"
+        
+        # Reduce build time by limiting architectures
+        CIBW_ARCHS_LINUX: x86_64
+        CIBW_ARCHS_MACOS: x86_64 arm64
+        CIBW_ARCHS_WINDOWS: AMD64
         
         # Install dependencies before building
-        CIBW_BEFORE_BUILD_LINUX: yum install -y eigen3-devel || apt-get update && apt-get install -y libeigen3-dev
-        CIBW_BEFORE_BUILD_MACOS: brew install eigen
+        CIBW_BEFORE_BUILD_LINUX: |
+          yum install -y eigen3-devel cmake3 || 
+          (apt-get update && apt-get install -y libeigen3-dev cmake)
+        
+        CIBW_BEFORE_BUILD_MACOS: |
+          brew install eigen cmake || echo "Dependencies may already be installed"
+        
         CIBW_BEFORE_BUILD_WINDOWS: |
-          git clone https://github.com/Microsoft/vcpkg.git C:\vcpkg &&
+          git clone --depth 1 https://github.com/Microsoft/vcpkg.git C:\vcpkg &&
           C:\vcpkg\bootstrap-vcpkg.bat &&
-          C:\vcpkg\vcpkg install eigen3:x64-windows &&
+          C:\vcpkg\vcpkg install eigen3:x64-windows --triplet x64-windows &&
           set EIGEN_INCLUDE_DIR=C:\vcpkg\installed\x64-windows\include\eigen3
         
-        # Build the C++ library first - run from the package directory
+        # Build the C++ library first - clean and build
         CIBW_BEFORE_BUILD: |
+          rm -rf ../condreg-cpp/build || del /Q /S ..\condreg-cpp\build || true &&
           cd {package} &&
           python build_cpp.py
     - uses: actions/upload-artifact@v4
