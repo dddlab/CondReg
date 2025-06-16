@@ -38,13 +38,29 @@ def find_cmake():
 
 def build_cpp_library():
     """Build the C++ library"""
-    # Get paths
+    # Get paths - handle both cases: running from condreg-py-interface or from repo root
     script_dir = Path(__file__).parent
-    cpp_dir = script_dir.parent / "condreg-cpp"
-    build_dir = cpp_dir / "build"
     
-    if not cpp_dir.exists():
-        raise RuntimeError(f"C++ source directory not found: {cpp_dir}")
+    # Try different possible locations for condreg-cpp
+    possible_cpp_dirs = [
+        script_dir.parent / "condreg-cpp",  # When run from condreg-py-interface
+        script_dir / "condreg-cpp",         # When run from repo root (cibuildwheel)
+        Path.cwd() / "condreg-cpp"          # Fallback to current working directory
+    ]
+    
+    cpp_dir = None
+    for candidate in possible_cpp_dirs:
+        if candidate.exists() and (candidate / "CMakeLists.txt").exists():
+            cpp_dir = candidate
+            break
+    
+    if cpp_dir is None:
+        print("Searched for condreg-cpp in:")
+        for candidate in possible_cpp_dirs:
+            print(f"  {candidate} - {'exists' if candidate.exists() else 'not found'}")
+        raise RuntimeError("C++ source directory not found")
+    
+    build_dir = cpp_dir / "build"
     
     print(f"Building C++ library in: {cpp_dir}")
     print(f"Platform: {platform.system()} {platform.machine()}")
