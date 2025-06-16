@@ -52,18 +52,49 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install numpy pybind11 pytest
-    - name: Clean build directory
+    - name: Clean build directories (Unix)
+      if: runner.os != 'Windows'
       run: |
         rm -rf condreg-cpp/build || true
+        rm -rf condreg-py-interface/build || true
+        rm -rf condreg-py-interface/condreg/*.so || true
+        rm -rf condreg-py-interface/condreg/lib/*.so || true
+    - name: Clean build directories (Windows)
+      if: runner.os == 'Windows'
+      run: |
+        if (Test-Path "condreg-cpp\build") { Remove-Item -Recurse -Force "condreg-cpp\build" }
+        if (Test-Path "condreg-py-interface\build") { Remove-Item -Recurse -Force "condreg-py-interface\build" }
+        if (Test-Path "condreg-py-interface\condreg\*.pyd") { Remove-Item -Force "condreg-py-interface\condreg\*.pyd" }
+        if (Test-Path "condreg-py-interface\condreg\lib\*.pyd") { Remove-Item -Force "condreg-py-interface\condreg\lib\*.pyd" }
     - name: Build C++ library
       timeout-minutes: 15
       run: |
         cd condreg-py-interface
         python build_cpp.py
+    - name: Verify C++ library build (Unix)
+      if: runner.os != 'Windows'
+      run: |
+        cd condreg-cpp/build
+        ls -la
+        if [ ! -f "libcondreg.a" ] && [ ! -f "libcondreg.so" ]; then
+          echo "Error: C++ library not found"
+          exit 1
+        fi
+        echo "C++ library build verified"
+    - name: Verify C++ library build (Windows)
+      if: runner.os == 'Windows'
+      run: |
+        cd condreg-cpp/build
+        Get-ChildItem -Recurse
+        if (-not (Test-Path "Release/condreg.lib") -and -not (Test-Path "Debug/condreg.lib") -and -not (Test-Path "condreg.lib")) {
+          Write-Error "C++ library not found"
+          exit 1
+        }
+        Write-Output "C++ library build verified"
     - name: Build Python package
       run: |
         cd condreg-py-interface
-        pip install -e .
+        pip install -e . --verbose
     - name: Test import
       run: |
         python -c "import condreg; print('Import successful')"
@@ -115,6 +146,8 @@ jobs:
         # Build the C++ library first - clean and build
         CIBW_BEFORE_BUILD: |
           rm -rf ../condreg-cpp/build || del /Q /S ..\condreg-cpp\build || true &&
+          rm -rf build || del /Q /S build || true &&
+          rm -rf condreg/*.so condreg/lib/*.so || del /Q condreg\*.pyd condreg\lib\*.pyd || true &&
           cd {package} &&
           python build_cpp.py
     - uses: actions/upload-artifact@v4

@@ -178,33 +178,30 @@ def get_library_info():
     
     return lib_name, lib_dirs, runtime_dirs
 
-# Only build extensions when explicitly requested
-if 'build_ext' in sys.argv:
-    lib_name, lib_dirs, runtime_dirs = get_library_info()
-    
-    include_dirs = [
-        condreg_cpp_include,
-        get_pybind_include(),
-        get_pybind_include(user=True),
-    ]
-    
-    # Add Eigen include directory if found
-    if EIGEN_INCLUDE_DIR:
-        include_dirs.append(EIGEN_INCLUDE_DIR)
-    
-    ext_modules = [
-        Extension(
-            'condreg_cpp',
-            ['src/bindings.cpp'],
-            include_dirs=include_dirs,
-            libraries=[lib_name],
-            library_dirs=lib_dirs,
-            runtime_library_dirs=runtime_dirs,
-            language='c++',
-        ),
-    ]
-else:
-    ext_modules = []
+# Build extensions by default (not just when build_ext is explicitly requested)
+lib_name, lib_dirs, runtime_dirs = get_library_info()
+
+include_dirs = [
+    condreg_cpp_include,
+    get_pybind_include(),
+    get_pybind_include(user=True),
+]
+
+# Add Eigen include directory if found
+if EIGEN_INCLUDE_DIR:
+    include_dirs.append(EIGEN_INCLUDE_DIR)
+
+ext_modules = [
+    Extension(
+        'condreg_cpp',
+        ['src/bindings.cpp'],
+        include_dirs=include_dirs,
+        libraries=[lib_name],
+        library_dirs=lib_dirs,
+        runtime_library_dirs=runtime_dirs,
+        language='c++',
+    ),
+]
 
 setup(
     name='condreg',

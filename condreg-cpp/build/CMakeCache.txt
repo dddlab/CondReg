@@ -22,7 +22,7 @@ CMAKE_AR:FILEPATH=/Library/Developer/CommandLineTools/usr/bin/ar
 
 //Choose the type of build, options are: None Debug Release RelWithDebInfo
 // MinSizeRel ...
-CMAKE_BUILD_TYPE:STRING=
+CMAKE_BUILD_TYPE:STRING=Release
 
 //Enable/Disable color output during build.
 CMAKE_COLOR_MAKEFILE:BOOL=ON
@@ -120,6 +120,9 @@ CMAKE_OSX_DEPLOYMENT_TARGET:STRING=
 //The product will be built against the headers and libraries located
 // inside the indicated SDK.
 CMAKE_OSX_SYSROOT:PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk
+
+//No help, variable specified on the command line.
+CMAKE_POSITION_INDEPENDENT_CODE:UNINITIALIZED=ON
 
 //Value Computed by CMake
 CMAKE_PROJECT_DESCRIPTION:STATIC=
