@@ -113,6 +113,15 @@ jobs:
     - uses: actions/checkout@v4
       with:
         submodules: recursive
+    - name: Clean platform-specific binaries
+      run: |
+        # Remove any existing platform-specific binaries to prevent cross-contamination
+        find . -name "*.so" -delete 2>/dev/null || true
+        find . -name "*.pyd" -delete 2>/dev/null || true
+        find . -name "*.dll" -delete 2>/dev/null || true
+        rm -rf condreg-py-interface/build 2>/dev/null || true
+        rm -rf condreg-cpp/build 2>/dev/null || true
+      shell: bash
     - name: Build wheels
       uses: pypa/cibuildwheel@v2.22.0
       timeout-minutes: 45
@@ -129,27 +138,61 @@ jobs:
         CIBW_ARCHS_MACOS: x86_64 arm64
         CIBW_ARCHS_WINDOWS: AMD64
         
-        # Install dependencies before building
+        # Install dependencies and build C++ library before building Python wheels
         CIBW_BEFORE_BUILD_LINUX: |
-          yum install -y eigen3-devel cmake3 || 
-          (apt-get update && apt-get install -y libeigen3-dev cmake)
+          echo "=== Installing dependencies ===" &&
+          yum install -y eigen3-devel cmake3 gcc-c++ make || 
+          (apt-get update && apt-get install -y libeigen3-dev cmake build-essential) &&
+          echo "=== Cleaning previous builds ===" &&
+          rm -rf ../condreg-cpp/build &&
+          rm -rf build &&
+          rm -rf condreg/*.so condreg/lib/*.so &&
+          echo "=== Current directory: $(pwd) ===" &&
+          echo "=== Directory contents: ===" &&
+          ls -la &&
+          echo "=== Parent directory contents: ===" &&
+          ls -la .. &&
+          echo "=== Building C++ library ===" &&
+          python build_cpp.py &&
+          echo "=== Verifying C++ library build ===" &&
+          ls -la ../condreg-cpp/build/ || echo "Build directory not found"
         
         CIBW_BEFORE_BUILD_MACOS: |
-          brew install eigen cmake || echo "Dependencies may already be installed"
+          echo "=== Installing dependencies ===" &&
+          brew install eigen cmake || echo "Dependencies may already be installed" &&
+          echo "=== Cleaning previous builds ===" &&
+          rm -rf ../condreg-cpp/build &&
+          rm -rf build &&
+          rm -rf condreg/*.so condreg/lib/*.so &&
+          echo "=== Current directory: $(pwd) ===" &&
+          echo "=== Directory contents: ===" &&
+          ls -la &&
+          echo "=== Parent directory contents: ===" &&
+          ls -la .. &&
+          echo "=== Building C++ library ===" &&
+          python build_cpp.py &&
+          echo "=== Verifying C++ library build ===" &&
+          ls -la ../condreg-cpp/build/ || echo "Build directory not found"
         
         CIBW_BEFORE_BUILD_WINDOWS: |
+          echo "=== Installing dependencies ===" &&
           git clone --depth 1 https://github.com/Microsoft/vcpkg.git C:\vcpkg &&
           C:\vcpkg\bootstrap-vcpkg.bat &&
           C:\vcpkg\vcpkg install eigen3:x64-windows --triplet x64-windows &&
-          set EIGEN_INCLUDE_DIR=C:\vcpkg\installed\x64-windows\include\eigen3
-        
-        # Build the C++ library first - clean and build
-        CIBW_BEFORE_BUILD: |
-          rm -rf ../condreg-cpp/build || del /Q /S ..\condreg-cpp\build || true &&
-          rm -rf build || del /Q /S build || true &&
-          rm -rf condreg/*.so condreg/lib/*.so || del /Q condreg\*.pyd condreg\lib\*.pyd || true &&
-          cd {package} &&
-          python build_cpp.py
+          set EIGEN_INCLUDE_DIR=C:\vcpkg\installed\x64-windows\include\eigen3 &&
+          echo "=== Cleaning previous builds ===" &&
+          del /Q /S ..\condreg-cpp\build 2>nul || echo "No build dir to clean" &&
+          del /Q /S build 2>nul || echo "No build dir to clean" &&
+          del /Q condreg\*.pyd condreg\lib\*.pyd 2>nul || echo "No pyd files to clean" &&
+          echo "=== Current directory: %CD% ===" &&
+          echo "=== Directory contents: ===" &&
+          dir &&
+          echo "=== Parent directory contents: ===" &&
+          dir .. &&
+          echo "=== Building C++ library ===" &&
+          python build_cpp.py &&
+          echo "=== Verifying C++ library build ===" &&
+          dir ..\condreg-cpp\build\ || echo "Build directory not found"
     - uses: actions/upload-artifact@v4
       with:
         name: wheels-${{ matrix.os }}
