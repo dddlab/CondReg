@@ -249,8 +249,8 @@ jobs:
           echo "=== C++ library build successful ==="
         
         CIBW_ENVIRONMENT_WINDOWS: >
-          EIGEN_INCLUDE_DIR=C:/eigen3/include/eigen3
-          EIGEN3_INCLUDE_DIR=C:/eigen3/include/eigen3
+          EIGEN_INCLUDE_DIR=C:/eigen3/include
+          EIGEN3_INCLUDE_DIR=C:/eigen3/include
           CMAKE_PREFIX_PATH=C:/vcpkg/installed/x64-windows
         
         CIBW_BEFORE_BUILD_WINDOWS: |
@@ -261,9 +261,12 @@ jobs:
           echo "=== Setting up Eigen for Python build ===" 
           mkdir C:\eigen3 2>nul || echo "Directory exists"
           mkdir C:\eigen3\include 2>nul || echo "Directory exists"
-          xcopy /E /I /Y C:\vcpkg\installed\x64-windows\include\eigen3 C:\eigen3\include\eigen3
+          xcopy /E /I /Y C:\vcpkg\installed\x64-windows\include\eigen3 C:\eigen3\include
           echo "=== Verifying Eigen installation ===" 
-          dir C:\eigen3\include\eigen3\Eigen
+          dir C:\eigen3\include\Eigen
+          echo "=== Also copying to vcpkg standard location ===" 
+          xcopy /E /I /Y C:\vcpkg\installed\x64-windows\include\eigen3 C:\vcpkg\installed\x64-windows\include
+          dir C:\vcpkg\installed\x64-windows\include\Eigen
           echo "=== Cleaning previous builds ===" 
           del /Q /S condreg-cpp\build 2>nul || echo "No build dir to clean"
           del /Q /S build 2>nul || echo "No build dir to clean"
