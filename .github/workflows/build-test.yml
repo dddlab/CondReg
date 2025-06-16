@@ -75,6 +75,9 @@ jobs:
         submodules: recursive
     - name: Build wheels
       uses: pypa/cibuildwheel@v2.22.0
+      with:
+        package-dir: ./condreg-py-interface
+        output-dir: wheelhouse
       env:
         # Configure cibuildwheel
         CIBW_BUILD: cp38-* cp39-* cp310-* cp311-* cp312-*
@@ -89,8 +92,10 @@ jobs:
           C:\vcpkg\vcpkg install eigen3:x64-windows &&
           set EIGEN_INCLUDE_DIR=C:\vcpkg\installed\x64-windows\include\eigen3
         
-        # Build the C++ library first
-        CIBW_BEFORE_BUILD: python build_cpp.py
+        # Build the C++ library first - run from the package directory
+        CIBW_BEFORE_BUILD: |
+          cd {package} &&
+          python build_cpp.py
     - uses: actions/upload-artifact@v4
       with:
         name: wheels-${{ matrix.os }}
