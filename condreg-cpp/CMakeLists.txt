@@ -11,12 +11,15 @@ include_directories(include)
 # Find Eigen
 find_package(Eigen3 QUIET NO_MODULE)
 if(NOT Eigen3_FOUND)
-  # If Eigen wasn't found through the package system, look in lib/eigen
-  if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/lib/eigen/Eigen/Dense)
+  # Check for EIGEN3_INCLUDE_DIR environment variable or CMake variable
+  if(DEFINED EIGEN3_INCLUDE_DIR)
+    include_directories(${EIGEN3_INCLUDE_DIR})
+    message(STATUS "Using Eigen from: ${EIGEN3_INCLUDE_DIR}")
+  elseif(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/lib/eigen/Eigen/Dense)
     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib/eigen)
     message(STATUS "Using bundled Eigen in lib/eigen")
   else()
-    message(STATUS "Eigen not found via find_package or in lib/eigen.")
+    message(STATUS "Eigen not found via find_package, EIGEN3_INCLUDE_DIR, or in lib/eigen.")
     message(STATUS "Downloading Eigen...")
     
     # Create the lib/eigen directory
@@ -27,7 +30,7 @@ if(NOT Eigen3_FOUND)
     FetchContent_Declare(
       eigen
       URL https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.gz
-      # Remove the hash check as it's causing issues
+      DOWNLOAD_EXTRACT_TIMESTAMP TRUE
     )
     FetchContent_MakeAvailable(eigen)
     
