@@ -11,12 +11,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest]
         python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
         exclude:
           # Exclude some combinations to reduce CI time
-          - os: windows-latest
-            python-version: '3.8'
           - os: macos-latest
             python-version: '3.8'
           - os: ubuntu-latest
@@ -132,7 +130,7 @@ jobs:
     timeout-minutes: 60
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest]
     steps:
     - uses: actions/checkout@v4
       with:
@@ -163,7 +161,6 @@ jobs:
         # Reduce build time by limiting architectures
         CIBW_ARCHS_LINUX: x86_64
         CIBW_ARCHS_MACOS: x86_64 arm64
-        CIBW_ARCHS_WINDOWS: AMD64
         
         # Install dependencies and build C++ library before building Python wheels
         CIBW_BEFORE_BUILD_LINUX: |
